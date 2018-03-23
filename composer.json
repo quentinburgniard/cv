@@ -1,0 +1,14 @@
+{
+    "name": "cv-pdf/cv-pdf",
+    "description": "Générer un CV automatiquement",
+    "require": {
+        "mpdf/mpdf": "7.*",
+        "gilbitron/php-simplecache": "1.*"
+    },
+    "authors": [
+        {
+            "name": "Quentin Burgniard",
+            "email": "quentinburgniard@gmail.com"
+        }
+    ]
+}

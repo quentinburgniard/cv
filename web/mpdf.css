@@ -1,0 +1,128 @@
+@page {
+	margin: 0;
+}
+
+html, body {
+	color: #2f2f2f;
+	font-size: 12pt;
+	line-height: 15pt;
+}
+
+a {
+	color: #2f2f2f;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	background-color: #487d96;
+	background-image: url('img/square.png');
+	background-position: 20mm 46mm;
+	background-repeat: no-repeat;
+	color: #ffffff;
+	height: 50mm;
+}
+
+.header table {
+	color: #ffffff;
+}
+
+.header table td {
+	padding: 15mm 10mm 0 10mm;
+	width: 105mm;
+}
+
+.header table td:nth-child(1) {
+	padding: 5mm 10mm 0 10mm;
+}
+
+h1 {
+	font-family: 'catamaran', sans-serif;
+	font-size: 30pt;
+	font-weight: 200;
+}
+
+.header table td:nth-child(2) {
+	text-align: right;
+}
+
+.header a {
+	color: white;
+}
+
+.header .fa {
+    font-size: 22pt;
+}
+
+.objet {
+	font-size: 14pt;
+}
+
+.resume {
+	padding: 0 20mm 0 20mm;
+}
+
+.left {
+	left: 20mm;
+	position: absolute;
+}
+
+.right {
+	position: absolute;
+	right: 20mm;
+}
+
+.titre {
+	background-color: #f0f0f0;
+	font-weight: bold;
+	padding: 0.5mm;
+	position: absolute;
+	right: 20mm;
+	text-align: center;
+}
+
+.contenu-left p {
+	padding: 5mm 0 0 0;
+}
+
+.contenu-right p {
+	padding: 3mm 0 0 0;
+}
+
+.annees {
+	color: #777777;
+}
+
+.icon {
+	text-decoration: none;
+}
+
+.fa {
+	font-family: 'fontawesome';
+}
+
+.contenu .description {
+	font-size: 10pt;
+	line-height: 12pt;
+	margin: 0;
+	padding: 0;
+}
+
+.contenu .description p {
+	line-height: 10pt;
+	padding: 1mm 0 0 0;
+}
+
+.footer {
+	background-color: #e1e1e1;
+	bottom: 0;
+	font-size: 10pt;
+	left: 0;
+	padding: 2mm 0 2mm 0;
+	position: absolute;
+	right: 0;
+	text-align: center;
+}
