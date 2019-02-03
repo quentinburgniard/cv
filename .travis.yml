@@ -1,4 +1,6 @@
 dist: xenial
+addons:
+  ssh_known_hosts: quentinburgniard.com
 language: php
 php: '7.2'
 git:
