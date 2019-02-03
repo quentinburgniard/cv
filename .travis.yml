@@ -17,5 +17,5 @@ after-success:
 - eval "$(ssh-agent -s)"
 - chmod 600 .travis/deploy.pem
 - ssh-add .travis/deploy.pem
-- git remote add deploy ssh://tubercule@$HOST:$DIRECTORY
+- git remote add deploy ssh://git@$HOST:$DIRECTORY
 - git push deploy
