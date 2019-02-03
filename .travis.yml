@@ -1,3 +1,5 @@
+dist: xenial
+
 language: php
 
 php: '7.2'
@@ -13,12 +15,9 @@ install: composer install
 
 script: true
 
-after-success:
-- eval "$(ssh-agent -s)"
-- chmod 600 .travis/deploy.pem
-- ssh-add .travis/deploy.pem
-- git remote add deploy ssh://$CI_USER@$CI_HOST:$CI_DIRECTORY
-- git push deploy
+deploy:
+  provider: script
+  script: bash deploy.sh
 
 notifications:
   email:
