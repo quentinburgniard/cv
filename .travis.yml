@@ -11,7 +11,7 @@ before-install:
 
 install: composer install
 
-script:
+script: true
 
 after-success:
 - eval "$(ssh-agent -s)"
