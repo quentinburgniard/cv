@@ -11,6 +11,8 @@ before-install:
 
 install: composer install
 
+script:
+
 after-success:
 - eval "$(ssh-agent -s)"
 - chmod 600 .travis/deploy.pem
