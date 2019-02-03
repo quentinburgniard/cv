@@ -22,6 +22,6 @@ after-success:
 
 notifications:
   email:
-  - quentinburgniard@gmail.com
+    recipients: quentinburgniard@gmail.com
     on_success: never
     on_failure: always
