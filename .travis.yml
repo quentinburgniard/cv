@@ -19,3 +19,9 @@ after-success:
 - ssh-add .travis/deploy.pem
 - git remote add deploy ssh://git@$HOST:$DIRECTORY
 - git push deploy
+
+notifications:
+  email:
+  - quentinburgniard@gmail.com
+    on_success: never
+    on_failure: always
