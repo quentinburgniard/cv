@@ -3,13 +3,13 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $cache = new Gilbitron\Util\SimpleCache();
 $cache->cache_path = '../';
-if (!empty($_GET) && $_GET['cache'] == 'no') {
+if (!empty($_GET['cache']) && $_GET['cache'] == 'no') {
 	$cache->cache_time = 0;
 } else {
 	$cache->cache_time = 259200;
 }
 
-$api_wp = $cache->get_data('wp', 'https://api.kent1.xyz/wp-json/wp/v2/pages/21');
+$api_wp = $cache->get_data('wp', 'https://clients.digital-leman.com/wp-json/acf/v3/posts/' . $_GET['id']);
 $json = json_decode($api_wp);
 
 $naissance = strftime('%e %B %Y', strtotime($json->acf->naissance));
