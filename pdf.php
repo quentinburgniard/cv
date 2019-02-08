@@ -77,7 +77,4 @@ foreach ($json->acf->interets as $item) {
 
 $pdf .= '</div></div>';
 
-$pdf .= "<div class='footer'>CV généré dynamiquement
-<a href='https://github.com/quentinburgniard/cv' style='text-decoration: none'>
-<span class='fa fa-github' aria-hidden='true'>&#xf09b</span>
-</a> - Dernière mise à jour : ". $maj . "</div>";
+$pdf .= "<div class='footer'>" . $json->footer ."</div>";
