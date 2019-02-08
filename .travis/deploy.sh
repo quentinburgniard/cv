@@ -3,9 +3,6 @@
 eval "$(ssh-agent -s)"
 chmod 600 .travis/deploy.pem
 ssh-add .travis/deploy.pem
-
-# https://github.com/dwyl/learn-devops/issues/33
-git fetch --unshallow 
-
-git remote add deploy ssh://$CI_USER@$CI_HOST/~/$CI_DIRECTORY
-git push deploy master:deploy
+ssh -t $CI_USER@$CI_HOST "git reset --hard ${CI_DIRECTORY}"
+ssh -t $CI_USER@$CI_HOST "git pull ${CI_DIRECTORY}"
+ssh -t $CI_USER@$CI_HOST "docker restart nginx-amplify"
