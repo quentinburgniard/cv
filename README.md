@@ -3,7 +3,10 @@
 ## Run composer to install dependencies
 
 ```
-docker run -it --rm \
---volume ${HOME}/quentinburgniard.com/cv:/app \
-composer install
+docker build -t cv . 
+docker run -d \
+--network quentinburgniard.com \
+--restart always \
+--name cv \
+cv
 ```
