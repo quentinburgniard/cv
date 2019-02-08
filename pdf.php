@@ -23,9 +23,6 @@ Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
 <a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
 <span class="fa fa-linkedin-square" aria-hidden="true">&#xf08c</span>
 </a>
-<a href="https://www.instagram.com/quentinburgniard/" style="text-decoration: none">
-<span class="fa fa-instagram" aria-hidden="true">&#xf16d</span>
-</a>
 </td></tr></table></div>
 <div class="objet">' . $json->acf->objet . '</div>
 <div class="left">
