@@ -1,18 +1,18 @@
 <?php $pdf = '<style>
 .contenu {
-	padding: 0 2mm ' . $json->acf->padding . 'mm 2mm;
+	padding: 0 2mm 8mm 2mm;
 }
 .objet {
-	padding: 10mm 20mm ' . $json->acf->padding . 'mm 20mm;
+	padding: 10mm 20mm 8mm 20mm;
 }
 .left {
-	width: ' . $json->acf->taille .'mm;
+	width: 100mm;
 }
 .right, .profil {
-	width: ' . (160 - $json->acf->taille) . 'mm;
+	width: 100mm;
 }
 .profil {
-	padding: 0 0 ' . $json->acf->padding . 'mm 0;
+	padding: 0 0 8mm 0;
 }
 </style>';
 $pdf .= '<div class="header"><table>
@@ -22,6 +22,9 @@ Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
 <a href="' . $json->acf->site . '">' . $site . '</a><br><br>
 <a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
 <span class="fa fa-linkedin-square" aria-hidden="true">&#xf08c</span>
+</a>
+<a href="' . $json->acf->github . '" style="text-decoration: none;">
+<span class="fa fa-github-square" aria-hidden="true">&#xf08c</span>
 </a>
 </td></tr></table></div>
 <div class="objet">' . $json->acf->objet . '</div>
