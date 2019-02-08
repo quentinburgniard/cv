@@ -9,7 +9,7 @@
 	width: 100mm;
 }
 .right, .profil {
-	width: 100mm;
+	width: 60mm;
 }
 .profil {
 	padding: 0 0 8mm 0;
