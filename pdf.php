@@ -24,7 +24,7 @@ Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
 <span class="fa fa-linkedin-square" aria-hidden="true">&#xf08c</span>
 </a>
 <a href="' . $json->acf->github . '" style="text-decoration: none;">
-<span class="fa fa-github-square" aria-hidden="true">&#xf08c</span>
+<span class="fa fa-github-square" aria-hidden="true">&#xf092</span>
 </a>
 </td></tr></table></div>
 <div class="objet">' . $json->acf->objet . '</div>
