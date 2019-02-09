@@ -77,4 +77,4 @@ foreach ($json->acf->interets as $item) {
 
 $pdf .= '</div></div>';
 
-$pdf .= "<div class='footer'>" . $json->footer ."</div>";
+$pdf .= "<div class='footer'>" . $json->acf->footer ."</div>";
