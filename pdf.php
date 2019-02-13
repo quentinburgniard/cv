@@ -39,7 +39,7 @@ foreach ($json->acf->experiences as $item) {
 	$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule;
 
 	if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
-	<span class="fa fa-globe">&#xf0ac;</span></a>';
+	<span class="fa fa-link">&#xf0c1;</span></a>';
 
 	$pdf .= '<div class="description">' . $item->description . '</div>';
 }
@@ -50,7 +50,7 @@ foreach ($json->acf->formations as $item) {
 	$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule;
 
 	if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
-	<span class="fa fa-globe">&#xf0ac;</span></a>';
+	<span class="fa fa-link">&#xf0c1;</span></a>';
 
 	$pdf .= '<div class="description">' . $item->description . '</div>';
 }
