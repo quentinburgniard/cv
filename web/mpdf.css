@@ -54,7 +54,7 @@ h1 {
 }
 
 .header .fa {
-    font-size: 22pt;
+	font-size: 18pt;
 }
 
 .objet {
@@ -62,11 +62,11 @@ h1 {
 }
 
 .resume {
-	padding: 0 20mm 0 20mm;
+	padding: 0 10mm 0 10mm;
 }
 
 .left {
-	left: 20mm;
+	left: 10mm;
 	position: absolute;
 }
 
