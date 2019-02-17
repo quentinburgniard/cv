@@ -19,18 +19,18 @@ $pdf .= '<div class="header"><table>
 <tr><td><h1>' . $json->acf->nom . '</h1><p>' . $json->acf->slogan . '<br>
 <span class="fa fa-map-pin" aria-hidden="true" style="font-size: 12pt">&#xf276</span> ' . $json->acf->localisation . '<br>
 Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
-<td><img src="' . $json->acf->telephone . '">' . $json->acf->courriel . '<br>
-<a href="' . $json->acf->site . '">' . $site . '</a><br><br>
-<a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
+<td>' . $json->acf->telephone . '<br>' . $json->acf->courriel . '<br>';
+if (!empty($json->acf->site)) $pdf .= '<a href="' . $json->acf->site . '">' . $json->acf->site . '</a><br><br>';
+if (!empty($json->acf->linkedin)) $pdf .= '<a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
 <span class="fa fa-linkedin" aria-hidden="true">&#xf0e1</span>
-</a>
-<a href="' . $json->acf->github . '" style="text-decoration: none;">
+</a>';
+if (!empty($json->acf->github)) $pdf .= '<a href="' . $json->acf->github  . '" style="text-decoration: none;">
 <span class="fa fa-github" aria-hidden="true">&#xf09b</span>
-</a>
-<a href="' . $json->acf->medium . '" style="text-decoration: none;">
+</a>';
+if (!empty($json->acf->medium)) $pdf .= '<a href="' . $json->acf->medium  . '" style="text-decoration: none;">
 <span class="fa fa-medium" aria-hidden="true">&#xf23a</span>
-</a>
-</td></tr></table></div>
+</a>';
+$pdf .= '</td></tr></table></div>
 <div class="objet">' . $json->acf->objet . '</div>
 <div class="left">
 <div class="titre">Expériences</div><div class="contenu contenu-left">';
@@ -80,5 +80,3 @@ foreach ($json->acf->interets as $item) {
 }
 
 $pdf .= '</div></div>';
-
-$pdf .= "<div class='footer'>" . $json->acf->footer ."</div>";
