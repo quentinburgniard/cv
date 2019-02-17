@@ -6,7 +6,7 @@ $cache->cache_path = '../';
 if (!empty($_GET['cache']) && $_GET['cache'] == 'no') {
 	$cache->cache_time = 0;
 } else {
-	$cache->cache_time = 259200;
+	$cache->cache_time = 0;
 }
 
 $api_wp = $cache->get_data('wp', 'https://clients.digital-leman.com/wp-json/acf/v3/posts/' . $_GET['id']);
