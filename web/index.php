@@ -1,15 +1,7 @@
 <?php setlocale(LC_ALL, 'fr_FR.UTF-8');
 require __DIR__ . '/../vendor/autoload.php';
 
-$cache = new Gilbitron\Util\SimpleCache();
-$cache->cache_path = '../';
-if (!empty($_GET['cache']) && $_GET['cache'] == 'no') {
-	$cache->cache_time = 0;
-} else {
-	$cache->cache_time = 0;
-}
-
-$api_wp = $cache->get_data('wp', 'https://clients.digital-leman.com/wp-json/acf/v3/posts/' . $_GET['id']);
+$api_wp = file_get_contents('https://clients.digital-leman.com/wp-json/acf/v3/posts/' . $_GET['id']);
 $json = json_decode($api_wp);
 
 $naissance = strftime('%e %B %Y', strtotime($json->acf->naissance));

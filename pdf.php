@@ -1,18 +1,18 @@
 <?php $pdf = '<style>
 .contenu {
-	padding: 0 2mm 8mm 2mm;
+	padding: 0 2mm 10mm 2mm;
 }
 .objet {
-	padding: 10mm 20mm 8mm 20mm;
+	padding: 10mm 20mm 10mm 20mm;
 }
 .left {
-	width: 100mm;
+	width: 120mm;
 }
 .right, .profil {
 	width: 60mm;
 }
 .profil {
-	padding: 0 0 8mm 0;
+	padding: 0 0 10mm 0;
 }
 </style>';
 $pdf .= '<div class="header"><table>
@@ -20,7 +20,7 @@ $pdf .= '<div class="header"><table>
 <span class="fa fa-map-pin" aria-hidden="true" style="font-size: 12pt">&#xf276</span> ' . $json->acf->localisation . '<br>
 Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
 <td>' . $json->acf->telephone . '<br>' . $json->acf->courriel . '<br>';
-if (!empty($json->acf->site)) $pdf .= '<a href="' . $json->acf->site . '">' . $json->acf->site . '</a><br><br>';
+if (!empty($json->acf->site)) $pdf .= '<a href="' . $json->acf->site . '">' . $site . '</a><br><br>';
 if (!empty($json->acf->linkedin)) $pdf .= '<a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
 <span class="fa fa-linkedin" aria-hidden="true">&#xf0e1</span>
 </a>';
@@ -35,31 +35,37 @@ $pdf .= '</td></tr></table></div>
 <div class="left">
 <div class="titre">Expériences</div><div class="contenu contenu-left">';
 
-foreach ($json->acf->experiences as $item) {
-	$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule;
+if (!empty($json->acf->experiences)) {
+	foreach ($json->acf->experiences as $item) {
+		$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule;
 
-	if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
-	<span class="fa fa-link">&#xf0c1;</span></a>';
+		if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
+		<span class="fa fa-link">&#xf0c1;</span></a>';
 
-	$pdf .= '<div class="description">' . $item->description . '</div>';
+		$pdf .= '<div class="description">' . $item->description . '</div>';
+	}
 }
 
 $pdf .= '</div><div class="titre">Formations</div><div class="contenu contenu-left">';
 
-foreach ($json->acf->formations as $item) {
-	$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule;
+if (!empty($json->acf->formations)) {
+	foreach ($json->acf->formations as $item) {
+		$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule;
 
-	if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
-	<span class="fa fa-link">&#xf0c1;</span></a>';
+		if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
+		<span class="fa fa-link">&#xf0c1;</span></a>';
 
-	$pdf .= '<div class="description">' . $item->description . '</div>';
+		$pdf .= '<div class="description">' . $item->description . '</div>';
+	}
 }
 
 $pdf .= '</div><div class="titre">Divers</div><div class="contenu contenu-left">';
 
-foreach ($json->acf->divers as $item) {
-	$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule .
-	'<div class="description">' . $item->description . '</div>';
+if (!empty($json->acf->divers)) {
+	foreach ($json->acf->divers as $item) {
+		$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule .
+		'<div class="description">' . $item->description . '</div>';
+	}
 }
 
 $pdf .= '</div></div>
@@ -67,16 +73,22 @@ $pdf .= '</div></div>
 <img src="' . $json->acf->image .'" class="profil">
 <div class="titre">Compétences</div><div class="contenu contenu-right">';
 
-foreach ($json->acf->competences as $item) {
-	$pdf .= '<p>' . $item->intitule . '</p>' .
-	'<div class="description">' . $item->description . '</div>';
+if (!empty($json->acf->competences)) {
+	foreach ($json->acf->competences as $item) {
+		$pdf .= '<p>' . $item->intitule . '</p>' .
+		'<div class="description">' . $item->description . '</div>';
+	}
 }
 
 $pdf .= '</div><div class="titre">Intérêts</div><div class="contenu contenu-right">';
 
-foreach ($json->acf->interets as $item) {
-	$pdf .= '<p>' . $item->intitule . '</p>' .
-	'<div class="description">' . $item->description . '</div>';
+if (!empty($json->acf->interets)) {
+	foreach ($json->acf->interets as $item) {
+		$pdf .= '<p>' . $item->intitule . '</p>' .
+		'<div class="description">' . $item->description . '</div>';
+	}
 }
 
 $pdf .= '</div></div>';
+
+if (!empty($json->acf->footer)) $pdf .= "<div class='footer'>" . $json->acf->footer ."</div>";
