@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $api_wp = file_get_contents('https://clients.digital-leman.com/wp-json/acf/v3/posts/' . $_GET['id']);
 $json = json_decode($api_wp);
 
-$naissance = strftime('%e %B %Y', strtotime($json->acf->naissance));
+$naissance = strftime('%e %b %Y', strtotime($json->acf->naissance));
 $age = (int)date('Ymd') - (int)$json->acf->naissance;
 $age = substr((string)$age, 0 , 2);
 $maj = date('d/m/y', strtotime($json->modified));
