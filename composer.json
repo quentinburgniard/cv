@@ -2,7 +2,7 @@
     "name": "cv-pdf/cv-pdf",
     "description": "Générer un CV automatiquement",
     "require": {
-        "mpdf/mpdf": "7.*"
+        "mpdf/mpdf": "^8.0.4"
     },
     "authors": [
         {
