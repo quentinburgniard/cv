@@ -1,14 +1,14 @@
 <?php setlocale(LC_ALL, 'fr_FR.UTF-8');
 require __DIR__ . '/../vendor/autoload.php';
 
-$api_wp = file_get_contents('https://clients.digital-leman.com/wp-json/acf/v3/posts/' . $_GET['id']);
-$json = json_decode($api_wp);
+$fields = $_POST['fields'];
+$fields = json_decode($fields);
 
-$naissance = strftime('%e %b %Y', strtotime($json->acf->naissance));
-$age = (int)date('Ymd') - (int)$json->acf->naissance;
+$naissance = strftime('%e %b %Y', strtotime($fields->datedenaissance));
+$age = (int)date('Ymd') - (int)$fields->datedenaissance;
 $age = substr((string)$age, 0 , 2);
-$maj = date('d/m/y', strtotime($json->modified));
-$site = parse_url($json->acf->site)['host'];
+$maj = date('d/m/y', strtotime($fields->modified));
+$site = parse_url($fields->siteinternet)['host'];
 
 include '../pdf.php';
 
@@ -33,8 +33,8 @@ $mpdf = new \Mpdf\Mpdf([
 	'progressBar' => true
 ]);
 
-$mpdf->SetTitle('CV ' . $json->acf->nom);
-$mpdf->SetAuthor($json->acf->nom);
+$mpdf->SetTitle('CV ' . $fields->nom);
+$mpdf->SetAuthor($fields->nom);
 $mpdf->SetSubject($json->acf->slogan);
 $mpdf->SetDisplayMode('fullpage');
 

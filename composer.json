@@ -2,8 +2,7 @@
     "name": "cv-pdf/cv-pdf",
     "description": "Générer un CV automatiquement",
     "require": {
-        "mpdf/mpdf": "7.*",
-        "gilbitron/php-simplecache": "1.*"
+        "mpdf/mpdf": "7.*"
     },
     "authors": [
         {
