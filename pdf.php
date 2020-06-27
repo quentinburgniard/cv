@@ -16,7 +16,7 @@
 }
 </style>';
 $pdf .= '<div class="header"><table>
-<tr><td><h1>' . $fields->nom . '</h1><p>' . $json->acf->slogan . '<br>
+<tr><td><h1>' . $fields->nom . '</h1><p>' . $fields->intituleduposte . '<br>
 <span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . $json->acf->localisation . '<br>
 Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
 <td><a href="tel:' . $json->acf->telephone . '" style="text-decoration: none">' . $json->acf->telephone . '</a><br>' . $json->acf->courriel . '<br>';
