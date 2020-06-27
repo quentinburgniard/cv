@@ -16,11 +16,11 @@
 }
 </style>';
 $pdf .= '<div class="header"><table>
-<tr><td><h1>' . $fields->nom . '</h1><p>' . $fields->intituleduposte . '<br>
-<span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . $json->acf->localisation . '<br>
+<tr><td><h1>' . $fields->prenom . ' ' . $fields->nom . '</h1><p>' . $fields->intituleduposte . '<br>
+<span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . $fields->adresse . '<br>
 Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
-<td><a href="tel:' . $json->acf->telephone . '" style="text-decoration: none">' . $json->acf->telephone . '</a><br>' . $json->acf->courriel . '<br>';
-if (!empty($json->acf->site)) $pdf .= '<a href="' . $fields->siteinternet . '">' . $site . '</a><br><br>';
+<td><a href="tel:' . $fields->numerodetelephone . '" style="text-decoration: none">' . $fields->numerodetelephone . '</a><br>' . $fields->email . '<br>';
+if (!empty($fields->siteinternet)) $pdf .= '<a href="' . $fields->siteinternet . '">' . $site . '</a><br><br>';
 if (!empty($json->acf->linkedin)) $pdf .= '<a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
 <span class="fa fa-linkedin" aria-hidden="true">&#xf0e1</span>
 </a>';
@@ -70,7 +70,7 @@ if (!empty($json->acf->divers)) {
 
 $pdf .= '</div></div>
 <div class="right">
-<img src="' . $json->acf->image .'" class="profil">
+<img src="' . $fields->image .'" class="profil">
 <div class="titre">Compétences</div><div class="contenu contenu-right">';
 
 if (!empty($json->acf->competences)) {
@@ -91,4 +91,4 @@ if (!empty($json->acf->interets)) {
 
 $pdf .= '</div></div>';
 
-if (!empty($json->acf->footer)) $pdf .= "<div class='footer'>" . $json->acf->footer ."</div>";
+if (!empty($fields->pieddepage)) $pdf .= "<div class='footer'>" . $fields->pieddepage ."</div>";

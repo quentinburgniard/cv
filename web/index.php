@@ -33,12 +33,12 @@ $mpdf = new \Mpdf\Mpdf([
 	'progressBar' => true
 ]);
 
-$mpdf->SetTitle('CV ' . $fields->nom);
-$mpdf->SetAuthor($fields->nom);
-$mpdf->SetSubject($json->acf->slogan);
+$mpdf->SetTitle('CV ' . $fields->prenom . ' ' . $fields->nom);
+$mpdf->SetAuthor($fields->prenom . ' ' . $fields->nom);
+$mpdf->SetSubject($fields->intituleduposte);
 $mpdf->SetDisplayMode('fullpage');
 
 $mpdf->WriteHTML(file_get_contents('mpdf.css'), 1);
 $mpdf->WriteHTML($pdf);
 
-$mpdf->Output('Quentin-Burgniard-CV.pdf', 'I');
+$mpdf->Output($fields->prenom . '-' . $fields->nom . '-CV.pdf', 'I');
