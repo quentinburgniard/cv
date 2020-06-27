@@ -1,5 +1,6 @@
 FROM php:7.4-apache
 WORKDIR /var/www/html
+ENV APACHE_DOCUMENT_ROOT /var/www/html/www
 RUN apt-get update && apt-get install -y wget libpng-dev git locales
 RUN localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8
 ENV LANG fr_FR.utf8
