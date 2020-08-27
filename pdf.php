@@ -35,36 +35,46 @@ $pdf .= '</td></tr></table></div>
 <div class="left">
 <div class="titre">Expériences</div><div class="contenu contenu-left">';
 
-if (!empty($json->acf->experiences)) {
-	foreach ($json->acf->experiences as $item) {
-		$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule;
+if (!empty($fields->experiences)) {
+	foreach ($fields->experiences as $item) {
+		if (!empty($item->date) && !empty($item->intitule)) {
+			$pdf .= '<p class="annees">' . $item->date . '</p>' . $item->intitule;
 
-		if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
-		<span class="fa fa-link">&#xf0c1;</span></a>';
+			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
+			<span class="fa fa-link">&#xf0c1;</span></a>';
 
-		$pdf .= '<div class="description">' . $item->description . '</div>';
+			$pdf .= '<div class="description">' . $item->description . '</div>';
+		}
 	}
 }
 
 $pdf .= '</div><div class="titre">Formations</div><div class="contenu contenu-left">';
 
-if (!empty($json->acf->formations)) {
-	foreach ($json->acf->formations as $item) {
-		$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule;
+if (!empty($fields->formations)) {
+	foreach ($fields->formations as $item) {
+		if (!empty($item->date) && !empty($item->intitule)) {
+			$pdf .= '<p class="annees">' . $item->date . '</p>' . $item->intitule;
 
-		if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
-		<span class="fa fa-link">&#xf0c1;</span></a>';
+			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
+			<span class="fa fa-link">&#xf0c1;</span></a>';
 
-		$pdf .= '<div class="description">' . $item->description . '</div>';
+			$pdf .= '<div class="description">' . $item->description . '</div>';
+		}
 	}
 }
 
 $pdf .= '</div><div class="titre">Divers</div><div class="contenu contenu-left">';
 
-if (!empty($json->acf->divers)) {
-	foreach ($json->acf->divers as $item) {
-		$pdf .= '<p class="annees">' . $item->annees . '</p>' . $item->intitule .
-		'<div class="description">' . $item->description . '</div>';
+if (!empty($fields->divers)) {
+	foreach ($fields->divers as $item) {
+		if (!empty($item->date) && !empty($item->intitule)) {
+			$pdf .= '<p class="annees">' . $item->date . '</p>' . $item->intitule;
+
+			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
+			<span class="fa fa-link">&#xf0c1;</span></a>';
+
+			$pdf .= '<div class="description">' . $item->description . '</div>';
+		}
 	}
 }
 
@@ -73,19 +83,23 @@ $pdf .= '</div></div>
 <img src="' . $fields->image .'" class="profil">
 <div class="titre">Compétences</div><div class="contenu contenu-right">';
 
-if (!empty($json->acf->competences)) {
-	foreach ($json->acf->competences as $item) {
-		$pdf .= '<p>' . $item->intitule . '</p>' .
-		'<div class="description">' . $item->description . '</div>';
+if (!empty($fields->competences)) {
+	foreach ($fields->competences as $item) {
+		if (!empty($item->intitule)) {
+			$pdf .= '<p>' . $item->intitule . '</p>' .
+			'<div class="description">' . $item->description . '</div>';
+		}
 	}
 }
 
 $pdf .= '</div><div class="titre">Intérêts</div><div class="contenu contenu-right">';
 
-if (!empty($json->acf->interets)) {
-	foreach ($json->acf->interets as $item) {
-		$pdf .= '<p>' . $item->intitule . '</p>' .
-		'<div class="description">' . $item->description . '</div>';
+if (!empty($fields->interets)) {
+	foreach ($fields->interets as $item) {
+		if (!empty($item->intitule)) {
+			$pdf .= '<p>' . $item->intitule . '</p>' .
+			'<div class="description">' . $item->description . '</div>';
+		}
 	}
 }
 

@@ -3,10 +3,11 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $fields = $_POST['fields'];
 $fields = json_decode($fields);
-
 $naissance = strftime('%e %b %Y', strtotime($fields->datedenaissance));
-$age = (int)date('Ymd') - (int)$fields->datedenaissance;
-$age = substr((string)$age, 0 , 2);
+$age = '';
+if ($naissance) {
+	$age = date_diff(new DateTime($fields->datedenaissance), new DateTime('now'))->format('%y');
+}
 $maj = date('d/m/y', strtotime($fields->modified));
 $site = parse_url($fields->siteinternet)['host'];
 
