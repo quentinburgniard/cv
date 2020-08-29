@@ -31,7 +31,7 @@ if (!empty($json->acf->medium)) $pdf .= '<a href="' . $json->acf->medium  . '" s
 <span class="fa fa-medium" aria-hidden="true">&#xf23a</span>
 </a>';
 $pdf .= '</td></tr></table></div>
-<div class="objet">' . $json->acf->objet . '</div>
+<div class="objet">' . $fields->phrasedaccroche . '</div>
 <div class="left">
 <div class="titre">Expériences</div><div class="contenu contenu-left">';
 
