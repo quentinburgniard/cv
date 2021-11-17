@@ -1,4 +1,5 @@
-<?php setlocale(LC_ALL, 'fr_FR.UTF-8');
+<?php ini_set('pcre.backtrack_limit', '1000000000');
+setlocale(LC_ALL, 'fr_FR.UTF-8');
 require __DIR__ . '/../vendor/autoload.php';
 
 $fields = $_POST['fields'];
