@@ -12,8 +12,6 @@ if ($naissance) {
 $maj = date('d/m/y', strtotime($fields->modified));
 $site = parse_url($fields->siteinternet)['host'];
 
-include '../pdf.php';
-
 $mpdf = new \Mpdf\Mpdf([
 	'default_font' => 'lato',
 	'dpi' => 300,
@@ -35,12 +33,13 @@ $mpdf = new \Mpdf\Mpdf([
 	'progressBar' => true
 ]);
 
+include '../pdf.php';
+
 $mpdf->SetTitle('CV ' . $fields->prenom . ' ' . $fields->nom);
 $mpdf->SetAuthor($fields->prenom . ' ' . $fields->nom);
 $mpdf->SetSubject($fields->intituleduposte);
 $mpdf->SetDisplayMode('fullpage');
 
 $mpdf->WriteHTML(file_get_contents('mpdf.css'), 1);
-$mpdf->WriteHTML($pdf);
 
 $mpdf->Output($fields->prenom . '-' . $fields->nom . '-CV.pdf', 'I');
