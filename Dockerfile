@@ -11,4 +11,5 @@ RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93
 COPY . /var/www/html
 RUN php composer.phar install
 RUN rm composer.phar && rm -rf /var/lib/apt/lists/* && apt remove -y git wget && apt autoremove -y
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN chown -R www-data:www-data .
