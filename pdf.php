@@ -16,10 +16,10 @@
 }
 </style>');
 $mpdf->WriteHTML('<div class="header"><table>
-<tr><td><h1>' . $fields->prenom . ' ' . $fields->nom . '</h1><p>' . $fields->intituleduposte . '<br>
+<tr><td><h1>' . $fields->prenom . ' ' . $fields->nom . '</h1><p>' . empty($fields->intituleduposte) ? '' : $fields->intituleduposte . '<br>
 <span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . $fields->adresse . '<br>
 Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
-<td><a href="tel:' . $fields->telephone . '" style="text-decoration: none">' . $fields->telephone . '</a><br>' . $fields->email . '<br>');
+<td><a href="tel:' . empty($fields->telephone) ? '' : $fields->telephone . '" style="text-decoration: none">' . $fields->telephone . '</a><br>' . $fields->email . '<br>');
 if (!empty($fields->siteinternet)) $mpdf->WriteHTML('<a href="' . $fields->siteinternet . '">' . $site . '</a><br><br>');
 if (!empty($json->acf->linkedin)) $mpdf->WriteHTML('<a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
 <span class="fa fa-linkedin" aria-hidden="true">&#xf0e1</span>
