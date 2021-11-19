@@ -20,16 +20,24 @@ $mpdf->WriteHTML('<div class="header"><table>
 <span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . $fields->adresse . '<br>
 Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
 <td><a href="tel:' . (empty($fields->telephone) ? '' : $fields->telephone) . '" style="text-decoration: none">' . $fields->telephone . '</a><br>' . $fields->email . '<br>');
-if (!empty($fields->siteinternet)) $mpdf->WriteHTML('<a href="' . $fields->siteinternet . '">' . $site . '</a><br><br>');
-if (!empty($json->acf->linkedin)) $mpdf->WriteHTML('<a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
+if (!empty($fields->siteinternet)) {
+	$mpdf->WriteHTML('<a href="' . $fields->siteinternet . '">' . $site . '</a><br><br>');
+}
+if (!empty($json->acf->linkedin)) {
+	$mpdf->WriteHTML('<a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
 <span class="fa fa-linkedin" aria-hidden="true">&#xf0e1</span>
 </a>');
-if (!empty($json->acf->github)) $mpdf->WriteHTML('<a href="' . $json->acf->github  . '" style="text-decoration: none;">
+}
+if (!empty($json->acf->github)) {
+	$mpdf->WriteHTML('<a href="' . $json->acf->github  . '" style="text-decoration: none;">
 <span class="fa fa-github" aria-hidden="true">&#xf09b</span>
 </a>');
-if (!empty($json->acf->medium)) $mpdf->WriteHTML('<a href="' . $json->acf->medium  . '" style="text-decoration: none;">
+}
+if (!empty($json->acf->medium)) {
+	$mpdf->WriteHTML('<a href="' . $json->acf->medium  . '" style="text-decoration: none;">
 <span class="fa fa-medium" aria-hidden="true">&#xf23a</span>
 </a>');
+}
 $mpdf->WriteHTML('</td></tr></table></div>
 <div class="objet">' . $fields->phrasedaccroche . '</div>
 <div class="left">
@@ -40,8 +48,10 @@ if (!empty($fields->experiences)) {
 		if (!empty($item->date) && !empty($item->intitule)) {
 			$mpdf->WriteHTML('<p class="annees">' . $item->date . '</p>' . $item->intitule);
 
-			if (!empty($item->site)) $mpdf->WriteHTML(' <a class="icon" href="' . $item->site . '">
+			if (!empty($item->site)) {
+				$mpdf->WriteHTML(' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>');
+			}
 
 			$mpdf->WriteHTML('<div class="description">' . $item->description . '</div>');
 		}
@@ -55,8 +65,10 @@ if (!empty($fields->formations)) {
 		if (!empty($item->date) && !empty($item->intitule)) {
 			$mpdf->WriteHTML('<p class="annees">' . $item->date . '</p>' . $item->intitule);
 
-			if (!empty($item->site)) $mpdf->WriteHTML(' <a class="icon" href="' . $item->site . '">
+			if (!empty($item->site)) {
+				$mpdf->WriteHTML(' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>');
+			}
 
 			$mpdf->WriteHTML('<div class="description">' . $item->description . '</div>');
 		}
@@ -70,8 +82,10 @@ if (!empty($fields->divers)) {
 		if (!empty($item->date) && !empty($item->intitule)) {
 			$mpdf->WriteHTML('<p class="annees">' . $item->date . '</p>' . $item->intitule);
 
-			if (!empty($item->site)) $mpdf->WriteHTML(' <a class="icon" href="' . $item->site . '">
+			if (!empty($item->site)) {
+				$mpdf->WriteHTML(' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>');
+			}
 
 			$mpdf->WriteHTML('<div class="description">' . $item->description . '</div>');
 		}
