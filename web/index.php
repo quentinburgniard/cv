@@ -1,5 +1,4 @@
-<?php ini_set('pcre.backtrack_limit', '-1');
-setlocale(LC_ALL, 'fr_FR.UTF-8');
+<?php setlocale(LC_ALL, 'fr_FR.UTF-8');
 require __DIR__ . '/../vendor/autoload.php';
 
 $fields = $_POST['fields'];
@@ -11,6 +10,11 @@ if ($naissance) {
 }
 $maj = date('d/m/y', strtotime($fields->modified));
 $site = parse_url($fields->siteinternet)['host'];
+if ($fields->image) {
+	$imageFile = str_replace('data:image/png;base64,', '', $fields->image);
+	$imageFile = base64_decode($imageFile);
+	file_put_contents(__DIR__ . '/../image.png', $imageFile);
+}
 
 $mpdf = new \Mpdf\Mpdf([
 	'default_font' => 'lato',
