@@ -4,7 +4,9 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $fields = $_POST['fields'];
 $fields = json_decode($fields);
-$naissance = strftime('%e %b %Y', strtotime($fields->datedenaissance));
+if (!empty($fields->datedenaissance)) {
+	$naissance = strftime('%e %b %Y', strtotime($fields->datedenaissance));
+}
 $age = '';
 if ($naissance) {
 	$age = date_diff(new DateTime($fields->datedenaissance), new DateTime('now'))->format('%y');
