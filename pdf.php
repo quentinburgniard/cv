@@ -80,7 +80,7 @@ if (!empty($fields->divers)) {
 
 $mpdf->WriteHTML('</div></div>
 <div class="right">
-<img src="' . __DIR__ . '/../image.png' .'" class="profil">
+<img src="' . $fields->image .'" class="profil">
 <div class="titre">Compétences</div><div class="contenu contenu-right">');
 
 if (!empty($fields->competences)) {
