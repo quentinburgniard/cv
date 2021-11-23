@@ -38,7 +38,7 @@ $pdf .= '</td></tr></table></div>
 if (!empty($fields->experiences)) {
 	foreach ($fields->experiences as $item) {
 		if (!empty($item->date) && !empty($item->intitule)) {
-			$pdf .= '<p class="annees">' . $item->date . '</p>' . $item->intitule;
+			$pdf .= '<span class="annees">' . $item->date . '</span> ' . $item->intitule;
 
 			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>';
@@ -53,7 +53,7 @@ $pdf .= '</div><div class="titre">Formations</div><div class="contenu contenu-le
 if (!empty($fields->formations)) {
 	foreach ($fields->formations as $item) {
 		if (!empty($item->date) && !empty($item->intitule)) {
-			$pdf .= '<p class="annees">' . $item->date . '</p>' . $item->intitule;
+			$pdf .= '<span class="annees">' . $item->date . '</span> ' . $item->intitule;
 
 			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>';
@@ -68,7 +68,7 @@ $pdf .= '</div><div class="titre">Divers</div><div class="contenu contenu-left">
 if (!empty($fields->divers)) {
 	foreach ($fields->divers as $item) {
 		if (!empty($item->date) && !empty($item->intitule)) {
-			$pdf .= '<p class="annees">' . $item->date . '</p>' . $item->intitule;
+			$pdf .= '<span class="annees">' . $item->date . '</span> ' . $item->intitule;
 
 			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>';
