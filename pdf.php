@@ -15,7 +15,7 @@
 	padding: 0 0 10mm 0;
 }
 </style>';
-$pdf .= '<div class="header"><table>
+if (!empty($fields->adresse) && !empty($naissance)) $pdf .= '<div class="header"><table>
 <tr><td><h1>' . $fields->prenom . ' ' . $fields->nom . '</h1><p>' . $fields->intituleduposte . '<br>
 <span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . $fields->adresse . '<br>
 Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
@@ -80,7 +80,7 @@ if (!empty($fields->divers)) {
 
 $pdf .= '</div></div>
 <div class="right">
-<img src="' . $fields->image .'" class="profil">
+<img src="' . ($fields->image ? $fields->image : 'https://static.digitalleman.com/profile.png') .'" class="profil">
 <div class="titre">Compétences</div><div class="contenu contenu-right">';
 
 if (!empty($fields->competences)) {

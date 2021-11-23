@@ -48,6 +48,25 @@ $mpdf->SetSubject($fields->intituleduposte);
 $mpdf->SetDisplayMode('fullpage');
 
 $mpdf->WriteHTML(file_get_contents('mpdf.css'), \Mpdf\HTMLParserMode::HEADER_CSS);
+$theme = '#487d96';
+switch ($fields->theme) {
+	case 'bleu':
+		$theme = '#487d96';
+		break;
+	case 'rouge':
+		$theme = '#df7fa0';
+		break;
+	case 'bleuclair':
+		$theme = '#71a5de';
+		break;
+	case 'vert':
+		$theme = '#55d6c2';
+		break;
+	case 'orange':
+		$theme = '#ffa48f';
+		break;
+}
+$mpdf->WriteHTML('.header { background-color: ' . $theme . ' }', \Mpdf\HTMLParserMode::HEADER_CSS);
 $mpdf->WriteHTML($pdf);
 
 $mpdf->Output($fields->prenom . '-' . $fields->nom . '-CV.pdf', 'I');
