@@ -68,7 +68,7 @@ $pdf .= '</div><div class="titre">Divers</div><div class="contenu contenu-left">
 if (!empty($fields->divers)) {
 	foreach ($fields->divers as $item) {
 		if (!empty($item->date) && !empty($item->intitule)) {
-			$pdf .= '<p class="annees">' . $item->date . '</p> ' . $item->intitule;
+			$pdf .= '<p class="annees">' . $item->date . '</p>' . $item->intitule;
 
 			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>';
