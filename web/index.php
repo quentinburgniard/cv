@@ -47,8 +47,7 @@ $mpdf->SetAuthor($fields->prenom . ' ' . $fields->nom);
 $mpdf->SetSubject($fields->intituleduposte);
 $mpdf->SetDisplayMode('fullpage');
 
-$mpdf->WriteHTML(file_get_contents('mpdf.css'), 1);
+$mpdf->WriteHTML(file_get_contents('mpdf.css'), \Mpdf\HTMLParserMode::HEADER_CSS);
 $mpdf->WriteHTML($pdf);
 
-//$mpdf->Output($fields->prenom . '-' . $fields->nom . '-CV.pdf', 'I');
-echo $pdf;
+$mpdf->Output($fields->prenom . '-' . $fields->nom . '-CV.pdf', 'I');
