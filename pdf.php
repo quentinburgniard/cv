@@ -43,7 +43,7 @@ if (!empty($fields->experiences)) {
 			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>';
 
-			$pdf .= '<div class="description">' . $item->description . '</div>';
+			$pdf .= '<div class="description">' . str_replace('\n', '<br>', $item->description) . '</div>';
 		}
 	}
 }
