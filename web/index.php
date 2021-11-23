@@ -50,4 +50,5 @@ $mpdf->SetDisplayMode('fullpage');
 $mpdf->WriteHTML(file_get_contents('mpdf.css'), 1);
 $mpdf->WriteHTML($pdf);
 
-$mpdf->Output($fields->prenom . '-' . $fields->nom . '-CV.pdf', 'I');
+//$mpdf->Output($fields->prenom . '-' . $fields->nom . '-CV.pdf', 'I');
+echo $pdf;
