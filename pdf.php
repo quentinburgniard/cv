@@ -15,7 +15,7 @@
 	padding: 0 0 10mm 0;
 }
 </style>';
-if (!empty($fields->adresse) && !empty($naissance)) $pdf .= '<div class="header"><table>
+$pdf .= '<div class="header"><table>
 <tr><td><h1>' . $fields->prenom . ' ' . $fields->nom . '</h1><p>' . $fields->intituleduposte . '<br>
 <span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . $fields->adresse . '<br>
 Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
