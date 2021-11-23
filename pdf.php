@@ -17,7 +17,7 @@
 </style>';
 $pdf .= '<div class="header"><table>
 <tr><td><h1>' . $fields->prenom . ' ' . $fields->nom . '</h1><p>' . $fields->intituleduposte . '<br>
-<span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . $fields->adresse . '<br>
+<span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . nl2br($fields->adresse) . '<br>
 Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
 <td><a href="tel:' . $fields->telephone . '" style="text-decoration: none">' . $fields->telephone . '</a><br>' . $fields->email . '<br>';
 if (!empty($fields->siteinternet)) $pdf .= '<a href="' . $fields->siteinternet . '">' . $site . '</a><br><br>';
@@ -31,7 +31,7 @@ if (!empty($json->acf->medium)) $pdf .= '<a href="' . $json->acf->medium  . '" s
 <span class="fa fa-medium" aria-hidden="true">&#xf23a</span>
 </a>';
 $pdf .= '</td></tr></table></div>
-<div class="objet">' . $fields->phrasedaccroche . '</div>
+<div class="objet">' . nl2br($fields->phrasedaccroche) . '</div>
 <div class="left">
 <div class="titre">Expériences</div><div class="contenu contenu-left">';
 
@@ -43,7 +43,7 @@ if (!empty($fields->experiences)) {
 			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>';
 
-			$pdf .= '<div class="description">' . str_replace('\n', '<br>', $item->description) . '</div>';
+			$pdf .= '<div class="description">' . nl2br($item->description) . '</div>';
 		}
 	}
 }
@@ -58,7 +58,7 @@ if (!empty($fields->formations)) {
 			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>';
 
-			$pdf .= '<div class="description">' . $item->description . '</div>';
+			$pdf .= '<div class="description">' . nl2br($item->description) . '</div>';
 		}
 	}
 }
@@ -73,7 +73,7 @@ if (!empty($fields->divers)) {
 			if (!empty($item->site)) $pdf .= ' <a class="icon" href="' . $item->site . '">
 			<span class="fa fa-link">&#xf0c1;</span></a>';
 
-			$pdf .= '<div class="description">' . $item->description . '</div>';
+			$pdf .= '<div class="description">' . nl2br($item->description) . '</div>';
 		}
 	}
 }
@@ -87,7 +87,7 @@ if (!empty($fields->competences)) {
 	foreach ($fields->competences as $item) {
 		if (!empty($item->intitule)) {
 			$pdf .= '<p>' . $item->intitule . '</p>' .
-			'<div class="description">' . $item->description . '</div>';
+			'<div class="description">' . nl2br($item->description) . '</div>';
 		}
 	}
 }
@@ -98,7 +98,7 @@ if (!empty($fields->interets)) {
 	foreach ($fields->interets as $item) {
 		if (!empty($item->intitule)) {
 			$pdf .= '<p>' . $item->intitule . '</p>' .
-			'<div class="description">' . $item->description . '</div>';
+			'<div class="description">' . str_replace('\n', '<br>', $item->description) . '</div>';
 		}
 	}
 }
