@@ -13,7 +13,7 @@ $translations = [
   ]
 ];
 function __(string $key) {
-  global $language;
+  global $language, $translations;
   if (!empty($translations[$language]) && !empty($translations[$language][$key])) {
     return $translations[$language][$key];
   } else {
