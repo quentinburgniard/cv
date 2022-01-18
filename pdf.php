@@ -17,8 +17,8 @@
 </style>';
 $pdf .= '<div class="header"><table>
 <tr><td><h1>' . $fields->prenom . ' ' . $fields->nom . '</h1><p>' . $fields->intituleduposte . '<br>
-<span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . nl2br($fields->adresse) . '<br>
-Date de naissance : ' . $naissance . ' - ' . $age . ' ans</p></td>
+<span class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt">&#xf124</span> ' . nl2br($fields->adresse) . '<br>';
+$pdf .= __('Date of Birth') . ' : ' . $naissance . ' - ' . $age . ' ans</p></td>
 <td><a href="tel:' . $fields->telephone . '" style="text-decoration: none">' . $fields->telephone . '</a><br>' . $fields->email . '<br>';
 if (!empty($fields->siteinternet)) $pdf .= '<a href="' . $fields->siteinternet . '">' . $site . '</a><br><br>';
 if (!empty($json->acf->linkedin)) $pdf .= '<a href="' . $json->acf->linkedin . '" style="text-decoration: none;">
@@ -33,7 +33,7 @@ if (!empty($json->acf->medium)) $pdf .= '<a href="' . $json->acf->medium  . '" s
 $pdf .= '</td></tr></table></div>
 <div class="objet">' . nl2br($fields->phrasedaccroche) . '</div>
 <div class="left">
-<div class="titre">Expériences</div><div class="contenu contenu-left">';
+<div class="titre">' . __('Professional Background') . '</div><div class="contenu contenu-left">';
 
 if (!empty($fields->experiences)) {
 	foreach ($fields->experiences as $item) {
@@ -48,7 +48,7 @@ if (!empty($fields->experiences)) {
 	}
 }
 
-$pdf .= '</div><div class="titre">Formations</div><div class="contenu contenu-left">';
+$pdf .= '</div><div class="titre">' . __('Education') . '</div><div class="contenu contenu-left">';
 
 if (!empty($fields->formations)) {
 	foreach ($fields->formations as $item) {
@@ -63,7 +63,7 @@ if (!empty($fields->formations)) {
 	}
 }
 
-$pdf .= '</div><div class="titre">Divers</div><div class="contenu contenu-left">';
+$pdf .= '</div><div class="titre">' . __('Miscellaneous') . '</div><div class="contenu contenu-left">';
 
 if (!empty($fields->divers)) {
 	foreach ($fields->divers as $item) {
@@ -81,7 +81,7 @@ if (!empty($fields->divers)) {
 $pdf .= '</div></div>
 <div class="right">
 <img src="' . ($fields->image ? $fields->image : 'https://static.digitalleman.com/profile.png') .'" class="profil">
-<div class="titre">Compétences</div><div class="contenu contenu-right">';
+<div class="titre">' . __('Skills') . '</div><div class="contenu contenu-right">';
 
 if (!empty($fields->competences)) {
 	foreach ($fields->competences as $item) {
@@ -92,7 +92,7 @@ if (!empty($fields->competences)) {
 	}
 }
 
-$pdf .= '</div><div class="titre">Intérêts</div><div class="contenu contenu-right">';
+$pdf .= '</div><div class="titre">' . __('Interests') . '</div><div class="contenu contenu-right">';
 
 if (!empty($fields->interets)) {
 	foreach ($fields->interets as $item) {
