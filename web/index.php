@@ -20,7 +20,7 @@ $site = parse_url($fields->siteinternet)['host'];
 	file_put_contents(__DIR__ . '/../image.png', $imageFile);
 }*/
 
-$langue = $fields->langue;
+$language = $fields->langue;
 include '../translations.php';
 include '../pdf.php';
 
