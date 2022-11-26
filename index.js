@@ -45,6 +45,7 @@ app.get('/:id/:language', (req, res, next) => {
         'experiences',
         'interests',
         'miscellaneous',
+        'picture',
         'skills'
       ]
     }

@@ -36,7 +36,8 @@ div(class="left")
     each event in cv.attributes.miscellaneous
       include Event
 div(class="right")
-  img(class="profil" src="")
+  if cv.attributes.picture.data
+    img(class="profil" src=cv.attributes.picture.data.attributes.url)
   div(class="titre")= __('Skills')
   div(class="contenu contenu-right")
     each page in cv.attributes.skills
