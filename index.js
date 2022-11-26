@@ -6,7 +6,7 @@ const logger = require('morgan');
 const fr = require('./fr.json');
 
 const app = express();
-const port = 8080;
+const port = 80;
 
 app.disable('x-powered-by');
 app.use(cookieParser());
