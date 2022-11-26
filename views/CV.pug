@@ -1,0 +1,48 @@
+div(class="header")
+  table
+    tr
+      td
+        h1= cv.attributes.firstName + ' ' + cv.attributes.lastName
+        p
+          = cv.attributes.title
+          br
+          span(class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt; white-space: pre-line;")= cv.attributes.adress
+          br
+          = __("Date of Birth: ") + cv.attributes.birthDate + ' - ' + cv.attributes.age + " " + __("y.o.")
+      td
+        a(href=`tel:${cv.attributes.phoneNumber}` style="text-decoration: none")= cv.attributes.phoneNumber
+        br
+        = cv.attributes.email
+        br
+        a(href=cv.attributes.website)= cv.attributes.websiteHostname
+        br
+        br
+        a(href="' . $json->acf->linkedin . '" style="text-decoration: none;")
+          span(class="fa fa-linkedin" aria-hidden="true") &#xf0e1
+        a(href="' . $json->acf->github  . '" style="text-decoration: none;")
+          span(class="fa fa-github" aria-hidden="true") &#xf09b
+//div(class="objet") $fields->phrasedaccroche
+div(class="left")
+  div(class="titre")= __("Professional Background")
+  div(class="contenu contenu-left")
+    each event in cv.attributes.experiences
+      include Event
+  div(class="titre")= __("Education")
+  div(class="contenu contenu-left")
+    each event in cv.attributes.educations
+      include Event
+  div(class="titre")= __('Miscellaneous')
+  div(class="contenu contenu-left")
+    each event in cv.attributes.miscellaneous
+      include Event
+div(class="right")
+  img(class="profil" src="")
+  div(class="titre")= __('Skills')
+  div(class="contenu contenu-right")
+    each page in cv.attributes.skills
+      include Page
+  div(class="titre")= __('Interests')
+  div(class="contenu contenu-right")
+    each page in cv.attributes.interests
+      include Page
+div(class="footer")= cv.attributes.footer

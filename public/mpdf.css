@@ -4,8 +4,10 @@
 
 html, body {
 	color: #2f2f2f;
+	font-family: 'Lato', sans-serif;
 	font-size: 12pt;
 	line-height: 15pt;
+	margin: 0;
 }
 
 a {
@@ -19,9 +21,6 @@ p {
 
 .header {
 	background-color: #487d96;
-	background-image: url('img/square.png');
-	background-position: 20mm 46mm;
-	background-repeat: no-repeat;
 	color: #ffffff;
 	height: 50mm;
 }
@@ -40,7 +39,7 @@ p {
 }
 
 h1 {
-	font-family: 'catamaran', sans-serif;
+	font-family: 'Catamaran', sans-serif;
 	font-size: 30pt;
 	font-weight: 200;
 }
