@@ -1,29 +1,16 @@
 doctype html
-html(lang="en")
+html(lang=language)
   head
     link(href="https://fonts.googleapis.com" rel="preconnect")
     link(crossorigin href="https://fonts.gstatic.com" rel="preconnect")
-    link(href="https://fonts.googleapis.com/css2?family=Catamaran:wght@200&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet")
+    link(href="/app.css" rel="stylesheet")
+    link(href="/bootstrap-grid.min.css" rel="stylesheet")
+    link(href="/pivot-picture.css" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css2?family=Catamaran:wght@200;500;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet")
     link(href="/favicon.png" rel="shortcut icon" type="image/png")
-    link(href="/mpdf.css" rel="stylesheet")
     meta(charset="UTF-8")
     meta(content="width=device-width, initial-scale=1.0" name="viewport")
-    style.
-      .contenu {
-        padding: 0 2mm 10mm 2mm;
-      }
-      .objet {
-        padding: 10mm 20mm 10mm 20mm;
-      }
-      .left {
-        width: 120mm;
-      }
-      .right, .profil {
-        width: 60mm;
-      }
-      .profil {
-        padding: 0 0 10mm 0;
-      }
     title Digital Léman CV
   body
-    include CV
+    include CV-pivot-picture
+    

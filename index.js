@@ -40,6 +40,7 @@ app.get('/:id/:language', (req, res, next) => {
       'authorization': `Bearer ${req.token}`
     },
     params: {
+      locale: res.language,
       populate: [
         'educations',
         'experiences',
@@ -62,7 +63,8 @@ app.get('/:id/:language', (req, res, next) => {
     if (cv.attributes.website) cv.attributes.websiteHostname = new URL(cv.attributes.website).hostname;
     res.render('App', {
       __: res.__,
-      cv: api.data.data
+      cv: api.data.data,
+      language: res.language
     });
   })
   .catch(function (error) {
