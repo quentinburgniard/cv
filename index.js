@@ -33,7 +33,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/:id/:language', (req, res, next) => {
+app.get('/:language', (req, res, next) => {
+  res.language = req.params.language;
+  res.render('App', {
+    __: res.__
+  });
+});
+
+app.get('/:language/pdf/:id', (req, res, next) => {
   res.language = req.params.language;
   axios.get('https://api.digitalleman.com/v2/cvs/' + req.params.id, {
     headers: {
@@ -61,7 +68,7 @@ app.get('/:id/:language', (req, res, next) => {
       cv.attributes.age = Math.abs(new Date().getFullYear() - date.getFullYear());
     }
     if (cv.attributes.website) cv.attributes.websiteHostname = new URL(cv.attributes.website).hostname;
-    res.render('App', {
+    res.render('PDF', {
       __: res.__,
       cv: api.data.data,
       language: res.language
