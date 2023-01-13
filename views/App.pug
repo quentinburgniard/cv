@@ -27,8 +27,12 @@ html(lang=language)
           },
           path: "/v1/"
         });
-        const parameters = {};
-        socket.emit("function", parameters, (results) => {
-
+        const parameters = {
+          height: 1920,
+          url: "https://cv.digitalleman.com/fr/pdf/1",
+          width: 1080
+        };
+        socket.emit("function", "screenshot", parameters, (results) => {
+          console.log(results);
         });
       })()
