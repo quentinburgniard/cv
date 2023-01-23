@@ -98,7 +98,7 @@ app.get('/:language/:id', (req, res, next) => {
   })
   .catch((error) => {
     if (error && [401, 403].includes(error.response.status)) {
-      res.redirect(`https://id.digitalleman.com%2F${req.params.language}?r=cv.digitalleman.com%2F${req.params.language}%2F${req.params.id}`);
+      res.redirect(307, `https://id.digitalleman.com/${req.params.language}?r=cv.digitalleman.com%2F${req.params.language}%2F${req.params.id}`);
     } else {
       res.status(error.response.status);
       res.send();
