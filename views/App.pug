@@ -10,6 +10,12 @@ html(lang=language)
     meta(content="width=device-width, initial-scale=1.0" name="viewport")
     title Digital Léman CV
   body
+    h1 Mes CVs
+    img(height="305px" id="cv-pivot-picture" width="215px")
+    h1 Mes renseignements
+    form
+      label(for="exampleInputEmail1") Email address
+      input(type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email")
     script(crossorigin="anonymous" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" src="https://cdn.socket.io/4.5.4/socket.io.min.js")
     script.
       (() => {
@@ -21,18 +27,21 @@ html(lang=language)
             //redirect();
           }
         }
-        const socket = io("https://mq.preview.quentinburgniard.com", {
+        const socket = io("https://mq.digitalleman.com", {
           auth: {
             token: getToken()
           },
           path: "/v1/"
-        });
+        })  ;
         const parameters = {
-          height: 1920,
-          url: "https://cv.digitalleman.com/fr/pdf/1",
-          width: 1080
+          height: 842,
+          url: "https://cv.digitalleman.com/pdf/#[=id]",
+          width: 595
         };
         socket.emit("function", "screenshot", parameters, (results) => {
-          console.log(results);
+          const blob = new Blob([new Uint8Array(results)], { type: "image/jpeg" });
+          let img = document.getElementById('cv-pivot-picture');
+          URL.revokeObjectURL(img.src);
+          img.src = URL.createObjectURL(blob);
         });
       })()
