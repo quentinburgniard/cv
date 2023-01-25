@@ -38,7 +38,6 @@ app.get('/pdf/:id', (req, res) => {
       'authorization': `Bearer ${req.token}`
     },
     params: {
-      locale: req.params.language,
       populate: [
         'educations',
         'experiences',
@@ -62,7 +61,7 @@ app.get('/pdf/:id', (req, res) => {
     res.render('PDF', {
       __: res.__,
       cv: cv,
-      language: req.params.language
+      language: cv.attributes.locale
     });
   })
   .catch((error) => {
@@ -90,11 +89,15 @@ app.get('/:language/:id', (req, res, next) => {
     }
   })
   .then((api) => {
-    res.render('App', {
-      __: res.__,
-      cv: api.data.data,
-      id: req.params.id
-    });
+    if (api.data.data.attributes.locale == req.params.language) {
+      res.render('App', {
+        __: res.__,
+        cv: api.data.data,
+        id: req.params.id
+      });
+    } else {
+      res.redirect(301, `https://cv.digitalleman.com/${api.data.data.attributes.locale}/${req.params.id}`);
+    }
   })
   .catch((error) => {
     if (error && [401, 403].includes(error.response.status)) {

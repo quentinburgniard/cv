@@ -4,18 +4,39 @@ html(lang=language)
     link(href="https://fonts.googleapis.com" rel="preconnect")
     link(crossorigin href="https://fonts.gstatic.com" rel="preconnect")
     link(href="/bootstrap-grid.min.css" rel="stylesheet")
-    link(href="https://fonts.googleapis.com/css2?family=Catamaran:wght@200;500;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet")
+    link(href="/app.css" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css2?family=Catamaran:wght@200;500;600;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet")
     link(href="/favicon.png" rel="shortcut icon" type="image/png")
     meta(charset="UTF-8")
     meta(content="width=device-width, initial-scale=1.0" name="viewport")
     title Digital Léman CV
   body
-    h1 Mes CVs
-    img(height="305px" id="cv-pivot-picture" width="215px")
-    h1 Mes renseignements
-    form
-      label(for="exampleInputEmail1") Email address
-      input(type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email")
+    div(class="container")
+      div(class="row justify-content-center")
+        div(class="col col-xl-8")
+          h1= __("My CV")
+          img(class="cv-img" id="cv-pivot-picture")
+          h1= __("My information")
+          form(class="row")
+            div(class="col")
+              input(type="text" id="title" placeholder=__("Pick-up line") value=cv.attributes.title)
+            div(class="col")
+              input(type="text" id="firstName" placeholder=__("First name") value=cv.attributes.firstName)
+            div(class="col")
+              input(type="text" id="lastName" placeholder=__("Last name") value=cv.attributes.lastName)
+            div(class="col")
+              input(type="date" id="birthdate")
+            div(class="col")
+              input(type="email" id="email" placeholder=__("Email") value=cv.attributes.email)
+            div(class="col")
+              input(type="url" id="website" placeholder=__("Website") value=cv.attributes.website)
+            div(class="col")
+              input(type="tel" id="phoneNumber" placeholder=__("Phone number") value=cv.attributes.phoneNumber)
+            div(class="col")
+              textarea(type="adress" id="phoneNumber" placeholder=__("Adress"))= cv.attributes.adress
+            div(class="col")
+              textarea(type="footer" id="footer" placeholder=__("Footer"))= cv.attributes.footer
+            div(class="col")
     script(crossorigin="anonymous" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" src="https://cdn.socket.io/4.5.4/socket.io.min.js")
     script.
       (() => {

@@ -1,9 +1,19 @@
 {
+  "Adress": "Adresse",
   "Date of Birth: ": "Date de naissance : ",
   "Education": "Formations",
+  "Email": "Email",
+  "First name": "Prénom",
+  "Footer": "Bas de page",
+  "Last name": "Nom",
   "Miscellaneous": "Divers",
+  "My CV": "Mon CV",
+  "My information": "Mes renseignements",
+  "Phone number": "Téléphone",
   "Skills": "Compétences",
+  "Pick-up line": "Phrase d'accroche",
   "Professional Background": "Expériences",
   "Interests": "Intérêts",
-  "y.o.": "ans"
+  "y.o.": "ans",
+  "Website": "Site web"
 }
