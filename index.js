@@ -67,13 +67,48 @@ app.get('/pdf/:id', (req, res) => {
     });
   })
   .catch((error) => {
-    //console.log(error);
-    res.status(error.response.status);
+    res.status(error.response.status || 500);
     res.send();
   });
 });
 
-app.get('/:language/:id', (req, res, next) => {
+app.get('/:language', (req, res) => {
+  let data = {
+    locale: req.params.language
+  };
+
+  axios.get('https://api.digitalleman.com/v2/users/me', {
+    headers: {
+      'authorization': `Bearer ${req.token}`
+    }
+  })
+  .then((api) => {
+    data.email = api.data.email;
+    axios.post('https://api.digitalleman.com/v2/cvs', { data: data }, {
+      headers: {
+        'authorization': `Bearer ${req.token}`
+      }
+    })
+    .then((api) => {
+      let cv = api.data.data;
+      res.redirect(307, `https://cv.digitalleman.com/${cv.attributes.locale}/${cv.id}`);
+    })
+    .catch((error) => {
+      res.status(error.response.status || 500);
+      res.send();
+    });
+  })
+  .catch((error) => {
+    if (error && [401, 403].includes(error.response.status)) {
+      res.redirect(307, `https://id.digitalleman.com/${req.params.language}?r=cv.digitalleman.com%2F${req.params.language}`);
+    } else {
+      res.status(error.response.status || 500);
+      res.send();
+    }
+  });
+});
+
+app.get('/:language/:id', (req, res) => {
   axios.get(`https://api.digitalleman.com/v2/cvs/${req.params.id}`, {
     headers: {
       'authorization': `Bearer ${req.token}`
@@ -93,13 +128,6 @@ app.get('/:language/:id', (req, res, next) => {
   .then((api) => {
     let cv = api.data.data;
     if (cv.attributes.locale == req.params.language) {
-      /*[cv.attributes.experiences, cv.attributes.educations, cv.attributes.miscellaneous].forEach((events) => {
-        events.map((event) => {
-          if (event.startDate) event.startDate = event.startDate.substring(0,7);
-          if (event.endDate) event.endDate = event.endDate.substring(0,7);
-          return event;
-        });
-      });*/
       res.render('App', {
         __: res.__,
         cv: cv
@@ -112,7 +140,7 @@ app.get('/:language/:id', (req, res, next) => {
     if (error && [401, 403].includes(error.response.status)) {
       res.redirect(307, `https://id.digitalleman.com/${req.params.language}?r=cv.digitalleman.com%2F${req.params.language}%2F${req.params.id}`);
     } else {
-      res.status(error.response.status);
+      res.status(error.response.status || 500);
       res.send();
     }
   });
@@ -123,7 +151,7 @@ app.use((req, res) => {
   res.send();
 });
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.send();
 });
