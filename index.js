@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fr = require('./fr.json');
+const pt = require('./pt.json');
 
 const app = express();
 const port = 80;
@@ -20,6 +21,8 @@ app.use((req, res, next) => {
     switch (req.params.language) {
       case 'fr':
         return fr[key] || key;
+      case 'pt':
+        return pt[key] || key;
       default:
         return key;
     }
@@ -60,8 +63,7 @@ app.get('/pdf/:id', (req, res) => {
     if (cv.attributes.website) cv.attributes.websiteHostname = new URL(cv.attributes.website).hostname;
     res.render('PDF', {
       __: res.__,
-      cv: cv,
-      language: cv.attributes.locale
+      cv: cv
     });
   })
   .catch((error) => {
@@ -89,14 +91,21 @@ app.get('/:language/:id', (req, res, next) => {
     }
   })
   .then((api) => {
-    if (api.data.data.attributes.locale == req.params.language) {
+    let cv = api.data.data;
+    if (cv.attributes.locale == req.params.language) {
+      /*[cv.attributes.experiences, cv.attributes.educations, cv.attributes.miscellaneous].forEach((events) => {
+        events.map((event) => {
+          if (event.startDate) event.startDate = event.startDate.substring(0,7);
+          if (event.endDate) event.endDate = event.endDate.substring(0,7);
+          return event;
+        });
+      });*/
       res.render('App', {
         __: res.__,
-        cv: api.data.data,
-        id: req.params.id
+        cv: cv
       });
     } else {
-      res.redirect(301, `https://cv.digitalleman.com/${api.data.data.attributes.locale}/${req.params.id}`);
+      res.redirect(301, `https://cv.digitalleman.com/${cv.attributes.locale}/${cv.id}`);
     }
   })
   .catch((error) => {

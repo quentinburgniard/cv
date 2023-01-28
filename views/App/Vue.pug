@@ -1,0 +1,46 @@
+script(src="https://unpkg.com/vue@3/dist/vue.global.js")
+- let json = JSON.stringify(cv);
+script.
+  (() => {
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          cv: !{json}
+        }
+      },
+      methods: {
+        month(date) {
+          return date ? date.substring(0, 7) : "";
+        }
+      },
+      watch: {
+        cv: {
+          handler(cv) {
+            let data = cv.attributes;
+            data.picture = cv.attributes.picture.data.id;
+            fetch("https://api.digitalleman.com/v2/cvs/!{cv.id}", {
+              body: JSON.stringify({
+                data: data
+              }),
+              headers: {
+                "authorization": `Bearer ${getToken()}`,
+                "content-type": "application/json"
+              },
+              method: "PUT"
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error && [401, 403].includes(data.error.status)) {
+                redirect();
+              } else {
+                document.dispatchEvent(new CustomEvent("cv-saved"));
+              }
+            });
+          },
+          deep: true
+        }
+      }
+    }).mount("form")
+  })();

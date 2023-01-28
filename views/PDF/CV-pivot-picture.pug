@@ -8,7 +8,8 @@ style.
 div(class="container-fluid")
   div(class="row header")
     div(class="col-4")
-      img(src=cv.attributes.picture.data.attributes.url width="100%" height="100%")
+      if cv.attributes.picture.data
+        img(src=cv.attributes.picture.data.attributes.url width="100%" height="100%")
     div(class="col-8")
       h1= cv.attributes.firstName + ' ' + cv.attributes.lastName
       h2= cv.attributes.title
@@ -24,13 +25,13 @@ div(class="container-fluid")
         section
           h3= __("Skills")
           div(class="line")
-          each page in cv.attributes.skills
-            include Page
+          each section in cv.attributes.skills
+            include Section
         section
           h3= __("Interests")
           div(class="line")
-          each page in cv.attributes.interests
-            include Page
+          each section in cv.attributes.interests
+            include Section
     div(class="col-8")
       div(class="right")
         section

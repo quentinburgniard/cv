@@ -1,0 +1,27 @@
+script(src="https://cdn.socket.io/4.5.4/socket.io.min.js")
+script.
+  (() => {
+    const socket = io("https://mq.digitalleman.com", {
+      auth: {
+        token: getToken()
+      },
+      path: "/v1/"
+    });
+    const parameters = {
+      height: 842,
+      url: "https://cv.digitalleman.com/pdf/!{cv.id}",
+      width: 595
+    };
+    const screenshot = () => {
+      socket.emit("function", "screenshot", parameters, (results) => {
+        const blob = new Blob([new Uint8Array(results)], { type: "image/jpeg" });
+        let url = URL.createObjectURL(blob);
+
+        let elements = document.querySelectorAll(".cv-image.cv-pivot-picture");
+        if (elements[0].src) URL.revokeObjectURL(elements[0].src);
+        elements.forEach(element => element.src = url);
+      });
+    }
+    screenshot();
+    document.addEventListener("cv-saved", screenshot);
+  })();

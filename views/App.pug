@@ -1,5 +1,5 @@
 doctype html
-html(lang=language)
+html(lang=cv.attributes.locale)
   head
     link(href="https://fonts.googleapis.com" rel="preconnect")
     link(crossorigin href="https://fonts.gstatic.com" rel="preconnect")
@@ -15,54 +15,69 @@ html(lang=language)
       div(class="row justify-content-center")
         div(class="col col-xl-8")
           h1= __("My CV")
-          img(class="cv-img" id="cv-pivot-picture")
+          div(class="cv-carousel carousel")
+            img(class="cv-image cv-pivot-picture")
           h1= __("My information")
-          form(class="row")
-            div(class="col")
-              input(type="text" id="title" placeholder=__("Pick-up line") value=cv.attributes.title)
-            div(class="col")
-              input(type="text" id="firstName" placeholder=__("First name") value=cv.attributes.firstName)
-            div(class="col")
-              input(type="text" id="lastName" placeholder=__("Last name") value=cv.attributes.lastName)
-            div(class="col")
-              input(type="date" id="birthdate")
-            div(class="col")
-              input(type="email" id="email" placeholder=__("Email") value=cv.attributes.email)
-            div(class="col")
-              input(type="url" id="website" placeholder=__("Website") value=cv.attributes.website)
-            div(class="col")
-              input(type="tel" id="phoneNumber" placeholder=__("Phone number") value=cv.attributes.phoneNumber)
-            div(class="col")
-              textarea(type="adress" id="phoneNumber" placeholder=__("Adress"))= cv.attributes.adress
-            div(class="col")
-              textarea(type="footer" id="footer" placeholder=__("Footer"))= cv.attributes.footer
-            div(class="col")
-    script(crossorigin="anonymous" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" src="https://cdn.socket.io/4.5.4/socket.io.min.js")
+          form(v-cloak)
+            div(class="row")
+              div(class="col-12 col-md-8 col-sm-6")
+                input(type="text" placeholder=__("Pick-up line") v-model.lazy.trim="cv.attributes.title")
+              div(class="col-12 col-md-4 col-sm-6")
+                if cv.attributes.picture.data
+                  img(src=cv.attributes.picture.data.attributes.url)
+              div(class="col-12 col-md-4 col-sm-6")
+                input(type="text" placeholder=__("First name") v-model.lazy.trim="cv.attributes.firstName")
+              div(class="col-12 col-md-4 col-sm-6")
+                input(type="text" placeholder=__("Last name") v-model.lazy.trim="cv.attributes.lastName")
+              div(class="col-12 col-md-4 col-sm-6")
+                input(type="date" v-model.lazy.trim="cv.attributes.birthdate")
+              div(class="col-12 col-md-4 col-sm-6")
+                input(type="email" placeholder=__("Email") v-model.lazy.trim="cv.attributes.email")
+              div(class="col-12 col-md-4 col-sm-6")
+                input(type="tel" placeholder=__("Phone number") v-model.lazy.trim="cv.attributes.phoneNumber")
+              div(class="col-12 col-md-4 col-sm-6")
+                input(type="url" placeholder=__("Website") v-model.lazy.trim="cv.attributes.website")
+              div(class="col-12")
+                textarea(placeholder=__("Adress") v-model.lazy.trim="cv.attributes.adress")
+              div(class="col-12")
+                h2= __("Professional Background")
+                - let events = "cv.attributes.experiences";
+                include App/Event
+              div(class="col-12")
+                h2= __("Education")
+                - events = "cv.attributes.educations";
+                include App/Event
+              div(class="col-12")
+                h2= __("Miscellaneous")
+                - events = "cv.attributes.miscellaneous";
+                include App/Event
+              div(class="col-12")
+                h2= __("Skills")
+                - let sections = "cv.attributes.skills";
+                include App/Section
+              div(class="col-12")
+                h2= __("Interests")
+                - sections = "cv.attributes.interests";
+                include App/Section
+    div(class="fullscreen-cv-carousel")
+      div(class="container")
+        div(class="row justify-content-center")
+          div(class="col col-xl-8")
+            div(class="carousel")
+              img(class="cv-image cv-pivot-picture")
+              img(class="cv-image cv-pivot-picture")
+              img(class="cv-image cv-pivot-picture")
     script.
-      (() => {
-        const getToken = () => {
-          let match = document.cookie.match(/t=([^;]+)/);
-          if (match && match[1]) {
-            return match[1];
-          } else {
-            //redirect();
-          }
+      const redirect = () => {
+        window.location = "https://id.digitalleman.com/!{cv.attributes.locale}?r=cv.digitalleman.com%2F!{cv.attributes.locale}%2F!{cv.id}";
+      }
+      const getToken = () => {
+        let match = document.cookie.match(/t=([^;]+)/);
+        if (match && match[1]) {
+          return match[1];
+        } else {
+          redirect();
         }
-        const socket = io("https://mq.digitalleman.com", {
-          auth: {
-            token: getToken()
-          },
-          path: "/v1/"
-        })  ;
-        const parameters = {
-          height: 842,
-          url: "https://cv.digitalleman.com/pdf/#[=id]",
-          width: 595
-        };
-        socket.emit("function", "screenshot", parameters, (results) => {
-          const blob = new Blob([new Uint8Array(results)], { type: "image/jpeg" });
-          let img = document.getElementById('cv-pivot-picture');
-          URL.revokeObjectURL(img.src);
-          img.src = URL.createObjectURL(blob);
-        });
-      })()
+      }
+    include App/Vue
+    include App/Socket
