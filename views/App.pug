@@ -70,7 +70,7 @@ html(lang=cv.attributes.locale)
               img(class="cv-image cv-pivot-picture")
     script.
       const redirect = () => {
-        window.location = "https://id.digitalleman.com/!{cv.attributes.locale}?r=cv.digitalleman.com%2F!{cv.attributes.locale}%2F!{cv.id}";
+        window.location = "https://id.digitalleman.com?l=!{cv.attributes.locale}&r=cv.digitalleman.com%2F!{cv.attributes.locale}%2F!{cv.id}";
       }
       const getToken = () => {
         let match = document.cookie.match(/t=([^;]+)/);
