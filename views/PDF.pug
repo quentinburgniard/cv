@@ -1,10 +1,10 @@
 doctype html
-html(lang=language)
+html(lang=cv.attributes.locale)
   head
     link(href="https://fonts.googleapis.com" rel="preconnect")
     link(crossorigin href="https://fonts.gstatic.com" rel="preconnect")
-    link(href="/pdf.css" rel="stylesheet")
     link(href="/bootstrap-grid.min.css" rel="stylesheet")
+    link(href="/pdf.css" rel="stylesheet")
     link(href="/pivot-picture.css" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css2?family=Catamaran:wght@200;500;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet")
     link(href="/favicon.png" rel="shortcut icon" type="image/png")
@@ -12,5 +12,5 @@ html(lang=language)
     meta(content="width=device-width, initial-scale=1.0" name="viewport")
     title Digital Léman CV
   body
-    include CV-pivot-picture
+    include PDF/CV-pivot-picture
     

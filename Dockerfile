@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:19
 ENV NODE_ENV production
 WORKDIR /usr/src/app
 EXPOSE 80
