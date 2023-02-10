@@ -1,6 +1,7 @@
 {
   "Address": "Endereço",
   "Date of Birth: ": "Data de Nascimento: ",
+  "Description": "Descrição",
   "Education": "Formações",
   "Email": "E-mail",
   "First name": "Nome",
@@ -14,6 +15,7 @@
   "Pick-up line": "Linha de levantamento",
   "Professional Background": "Experiências profissionais",
   "Interests": "Interesses",
+  "Title": "Título",
   "y.o.": "anos",
   "Website": "Website"
 }
