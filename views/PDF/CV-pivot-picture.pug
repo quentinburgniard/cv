@@ -11,8 +11,10 @@ div(class="container-fluid")
       if cv.attributes.picture.data
         img(src=cv.attributes.picture.data.attributes.url width="100%" height="100%")
     div(class="col-8")
-      h1= cv.attributes.firstName + ' ' + cv.attributes.lastName
-      h2= cv.attributes.title
+      if cv.attributes.firstName && cv.attributes.lastName
+        h1= `${cv.attributes.firstName || ''} ${cv.attributes.lastName || ''}`
+      if cv.attributes.title
+        h2= cv.attributes.title
       div(class="line")
   div(class="content row")
     div(class="col-4")
@@ -20,32 +22,40 @@ div(class="container-fluid")
         section
           h3= __("Contact")
           div(class="line")
-          span(class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt; white-space: pre-line;")= cv.attributes.address
-          = __("Date of Birth: ") + cv.attributes.birthDate + ' - ' + cv.attributes.age + " " + __("y.o.")
-        section
-          h3= __("Skills")
-          div(class="line")
-          each section in cv.attributes.skills
-            include Section
-        section
-          h3= __("Interests")
-          div(class="line")
-          each section in cv.attributes.interests
-            include Section
+          span(class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt; white-space: pre-line;")
+          = cv.attributes.address
+          br
+          if cv.attributes.birthdate
+            = `${__("Date of Birth: ")}${cv.attributes.birthdate} - ${cv.attributes.age} ${__("y.o.")}`
+        if cv.attributes.skills.length
+          section
+            h3= __("Skills")
+            div(class="line")
+            each section in cv.attributes.skills
+              include Section
+        if cv.attributes.interests.length
+          section
+            h3= __("Interests")
+            div(class="line")
+            each section in cv.attributes.interests
+              include Section
     div(class="col-8")
       div(class="right")
-        section
-          h3= __("Professional Background")
-          div(class="line")
-          each event in cv.attributes.experiences
-            include Event
-        section
-          h3= __("Education")
-          div(class="line")
-          each event in cv.attributes.educations
-            include Event
-        section
-          h3= __("Miscellaneous")
-          div(class="line")
-          each event in cv.attributes.miscellaneous
-            include Event
+        if cv.attributes.experiences.length
+          section
+            h3= __("Professional Background")
+            div(class="line")
+            each event in cv.attributes.experiences
+              include Event
+        if cv.attributes.educations.length
+          section
+            h3= __("Education")
+            div(class="line")
+            each event in cv.attributes.educations
+              include Event
+        if cv.attributes.miscellaneous.length
+          section
+            h3= __("Miscellaneous")
+            div(class="line")
+            each event in cv.attributes.miscellaneous
+              include Event

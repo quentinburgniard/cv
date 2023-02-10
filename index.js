@@ -54,12 +54,12 @@ app.get('/pdf/:id', (req, res) => {
   })
   .then((api) => {
     let cv = api.data.data;
-    if (cv.attributes.birthDate) {
-      let date = new Date(cv.attributes.birthDate);
-      let day = date.getDate();
-      let month = date.getMonth();
-      cv.attributes.birthDate = `${day > 9 ? day : '0' + day}/${month > 9 ? month : '0' + month}/${date.getFullYear()}`;
-      cv.attributes.age = Math.abs(new Date().getFullYear() - date.getFullYear());
+    if (cv.attributes.birthdate) {
+      let date = new Date(cv.attributes.birthdate);
+      cv.attributes.birthdate = `${date.toLocaleDateString(undefined, { day: '2-digit' })}/${date.toLocaleDateString(undefined, { month: '2-digit' })}/${date.getFullYear()}`;
+      let difference = Date.now() - date.getTime();
+      let age = new Date(difference);
+      cv.attributes.age = Math.abs(age.getUTCFullYear() - 1970);
     }
     if (cv.attributes.website) cv.attributes.websiteHostname = new URL(cv.attributes.website).hostname;
     res.language = cv.attributes.locale;
@@ -69,6 +69,7 @@ app.get('/pdf/:id', (req, res) => {
     });
   })
   .catch((error) => {
+    console.log(error);
     res.status(error.response.status || 500);
     res.send();
   });
