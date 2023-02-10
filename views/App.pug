@@ -3,6 +3,7 @@ html(lang=cv.attributes.locale)
   head
     link(href="https://fonts.googleapis.com" rel="preconnect")
     link(crossorigin href="https://fonts.gstatic.com" rel="preconnect")
+    link(href="/bootstrap-reboot.min.css" rel="stylesheet")
     link(href="/bootstrap-grid.min.css" rel="stylesheet")
     link(href="/app.css" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css2?family=Catamaran:wght@200;500;600;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet")
@@ -13,19 +14,19 @@ html(lang=cv.attributes.locale)
   body
     div(class="container")
       div(class="row justify-content-center")
-        div(class="col col-xl-8")
+        div(class="col-12 col-xl-8")
           h1= __("My CV")
           div(class="cv-carousel carousel")
-            img(class="cv-image cv-pivot-picture")
+            img(class="cv-image cv-pivot-picture" onclick="toggleFullscreenCarousel()")
           h1= __("My information")
           form(v-cloak)
+            //-div(class="col-12")
+              if cv.attributes.picture.data
+                img(class="cv-image" src=cv.attributes.picture.data.attributes.url)
             div(class="row")
-              //-div(class="col-12")
-                if cv.attributes.picture.data
-                  img(class="cv-image" src=cv.attributes.picture.data.attributes.url)
-              div(class="row")
-                div(class="col-12 col-sm-6")
-                  input(type="text" placeholder=__("Pick-up line") v-model.lazy.trim="cv.attributes.title")
+              div(class="col-12 col-sm-6")
+                input(type="text" placeholder=__("Pick-up line") v-model.lazy.trim="cv.attributes.title")
+            div(class="row")
               div(class="col-12 col-md-4 col-sm-6")
                 input(type="text" placeholder=__("First name") v-model.lazy.trim="cv.attributes.firstName")
               div(class="col-12 col-md-4 col-sm-6")
@@ -60,7 +61,7 @@ html(lang=cv.attributes.locale)
                 h2= __("Interests")
                 - sections = "cv.attributes.interests";
                 include App/Sections
-    div(class="fullscreen-cv-carousel")
+    div(class="fullscreen-cv-carousel" style="display: none")
       div(class="container")
         div(class="row justify-content-center")
           div(class="col col-xl-8")
@@ -78,6 +79,14 @@ html(lang=cv.attributes.locale)
           return match[1];
         } else {
           redirect();
+        }
+      }
+      const toggleFullscreenCarousel = () => {
+        let element = document.getElementsByClassName('fullscreen-cv-carousel')[0];
+        if (element.style.display == "none") {
+          element.style.display = "block";
+        } else {
+          element.style.display = "none";
         }
       }
     include App/Vue
