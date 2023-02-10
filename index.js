@@ -18,7 +18,8 @@ app.disable('view cache');
 
 app.use((req, res, next) => {
   res.__ = (key) => { 
-    switch (req.params.language) {
+    let language = req.params.language || res.language;
+    switch (language) {
       case 'fr':
         return fr[key] || key;
       case 'pt':
@@ -61,6 +62,7 @@ app.get('/pdf/:id', (req, res) => {
       cv.attributes.age = Math.abs(new Date().getFullYear() - date.getFullYear());
     }
     if (cv.attributes.website) cv.attributes.websiteHostname = new URL(cv.attributes.website).hostname;
+    res.language = cv.attributes.locale;
     res.render('PDF', {
       __: res.__,
       cv: cv
