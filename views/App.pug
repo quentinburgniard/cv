@@ -43,23 +43,23 @@ html(lang=cv.attributes.locale)
               div(class="col-12")
                 h2= __("Professional Background")
                 - let events = "cv.attributes.experiences";
-                include App/Event
+                include App/Events
               div(class="col-12")
                 h2= __("Education")
                 - events = "cv.attributes.educations";
-                include App/Event
+                include App/Events
               div(class="col-12")
                 h2= __("Miscellaneous")
                 - events = "cv.attributes.miscellaneous";
-                include App/Event
+                include App/Events
               div(class="col-12")
                 h2= __("Skills")
                 - let sections = "cv.attributes.skills";
-                include App/Section
+                include App/Sections
               div(class="col-12")
                 h2= __("Interests")
                 - sections = "cv.attributes.interests";
-                include App/Section
+                include App/Sections
     div(class="fullscreen-cv-carousel")
       div(class="container")
         div(class="row justify-content-center")

@@ -7,7 +7,29 @@ script.
     createApp({
       data() {
         return {
-          cv: !{json}
+          cv: !{json},
+          draft: {
+            educations: {
+              description: '',
+              title: ''
+            },
+            experiences: {
+              description: '',
+              title: ''
+            },
+            interests: {
+              description: '',
+              title: ''
+            },
+            miscellaneous: {
+              description: '',
+              title: ''
+            },
+            skills: {
+              description: '',
+              title: ''
+            }
+          }
         }
       },
       methods: {
