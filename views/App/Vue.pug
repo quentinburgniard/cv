@@ -18,7 +18,7 @@ script.
               title: ''
             },
             interests: {
-              description: '',
+              text: '',
               title: ''
             },
             miscellaneous: {
@@ -26,13 +26,29 @@ script.
               title: ''
             },
             skills: {
-              description: '',
+              text: '',
               title: ''
             }
           }
         }
       },
       methods: {
+        createEvent(events) {
+          this.cv.attributes[events].push({
+            description: this.draft[events].description,
+            title: this.draft[events].title
+          });
+          this.draft[events].description = '';
+          this.draft[events].title = '';
+        },
+        createSection(sections) {
+          this.cv.attributes[sections].push({
+            text: this.draft[sections].text,
+            title: this.draft[sections].title
+          });
+          this.draft[sections].text = '';
+          this.draft[sections].title = '';
+        },
         month(date) {
           return date ? date.substring(0, 7) : "";
         }
@@ -41,7 +57,7 @@ script.
         cv: {
           handler(cv) {
             let data = cv.attributes;
-            data.picture = cv.attributes.picture.data ? cv.attributes.picture.data.id : null;
+            data.picture = data.picture && data.picture.data ? data.picture.data.id : null;
             fetch("https://api.digitalleman.com/v2/cvs/!{cv.id}", {
               body: JSON.stringify({
                 data: data
