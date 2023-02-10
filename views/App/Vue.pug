@@ -19,7 +19,7 @@ script.
         cv: {
           handler(cv) {
             let data = cv.attributes;
-            data.picture = cv.attributes.picture.data.id;
+            data.picture = cv.attributes.picture.data ? cv.attributes.picture.data.id : null;
             fetch("https://api.digitalleman.com/v2/cvs/!{cv.id}", {
               body: JSON.stringify({
                 data: data
