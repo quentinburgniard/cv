@@ -40,7 +40,7 @@ html(lang=cv.attributes.locale)
               div(class="col-12 col-md-4 col-sm-6")
                 input(type="url" placeholder=__("Website") v-model.lazy.trim="cv.attributes.website")
               div(class="col-12")
-                textarea(placeholder=__("Address") v-model.lazy.trim="cv.attributes.address")
+                textarea(placeholder=__("Address") v-model.lazy.trim="cv.attributes.address" v-on:keyup="(event) => resizeTextarea(event.target)")
               div(class="col-12")
                 h2= __("Professional Background")
                 - let events = "cv.attributes.experiences";
@@ -82,7 +82,7 @@ html(lang=cv.attributes.locale)
         }
       }
       const toggleFullscreenCarousel = () => {
-        let element = document.getElementsByClassName('fullscreen-cv-carousel')[0];
+        let element = document.getElementsByClassName("fullscreen-cv-carousel")[0];
         if (element.style.display == "none") {
           element.style.display = "block";
         } else {

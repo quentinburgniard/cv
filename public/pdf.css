@@ -1,6 +1,7 @@
 html, body {
   height: 100%;
 }
+
 body, .container-fluid {
   color: #383838;
   font-family: 'Lato', sans-serif;
@@ -8,6 +9,11 @@ body, .container-fluid {
   overflow: hidden visible;
   padding: 0 !important;
 }
+
 img {
   object-fit: cover;
+}
+
+.address {
+  white-space: pre-line;
 }

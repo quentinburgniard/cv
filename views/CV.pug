@@ -8,7 +8,7 @@ div(class="header")
           br
           span(class="fa fa-location-arrow" aria-hidden="true" style="font-size: 12pt; white-space: pre-line;")= cv.attributes.address
           br
-          = __("Date of Birth: ") + cv.attributes.birthDate + ' - ' + cv.attributes.age + " " + __("y.o.")
+          = __("Date of Birth") + cv.attributes.birthDate + ' - ' + cv.attributes.age + " " + __("y.o.")
       td
         a(href=`tel:${cv.attributes.phoneNumber}` style="text-decoration: none")= cv.attributes.phoneNumber
         br

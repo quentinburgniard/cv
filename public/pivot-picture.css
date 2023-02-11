@@ -3,6 +3,7 @@
   height: 150px;
   text-transform: uppercase;
 }
+
 .header h1 {
   font-size: 32px;
   font-weight: bold;
@@ -10,28 +11,43 @@
   margin: 28px 0 0 0;
 
 }
+
 .header h2 {
   font-size: 18px;
   font-weight: normal;
   margin: 0;
 }
+
 .line {
   height: 3px;
   margin: 0 0 10px 0;
 }
+
 .header .line {
   width: 40%;
 }
+
 .left {
-  min-height: 973px;
+  min-height: 963px;
   padding: 15px;
 }
+
 .left line {
   width: 100%;
 }
+
+.contact-attribute {
+  margin: 0 0 10px 0;
+}
+
+.contact-attribute .highlight {
+  font-weight: bold;
+}
+
 section {
   margin: 30px 0 0 0;
 }
+
 h3 {
   font-family: 'Catamaran', sans-serif;
   font-size: 20px;
@@ -39,9 +55,11 @@ h3 {
   margin: 0;
   text-transform: uppercase;
 }
+
 .right {
   padding: 15px 15px 15px 0;
 }
+
 .right .line {
   width: 10%;
 }

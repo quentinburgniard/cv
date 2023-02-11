@@ -51,7 +51,16 @@ script.
         },
         month(date) {
           return date ? date.substring(0, 7) : "";
+        },
+        resizeTextarea(element) {
+          let match = element.value.match(/\n/g);
+          let lines = match ? match.length : 0;
+          let height = 23 + lines * 23 + 10;
+          element.style.height = `${height}px`;
         }
+      },
+      mounted() {
+        document.querySelectorAll('textarea').forEach(element => this.resizeTextarea(element));
       },
       watch: {
         cv: {
