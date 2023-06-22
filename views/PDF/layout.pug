@@ -1,5 +1,5 @@
 doctype html
-html(lang=cv.attributes.locale)
+html(lang=cv.data.attributes.locale)
   head
     link(href="https://fonts.googleapis.com" rel="preconnect")
     link(crossorigin href="https://fonts.gstatic.com" rel="preconnect")
@@ -12,5 +12,5 @@ html(lang=cv.attributes.locale)
     meta(content="width=device-width, initial-scale=1.0" name="viewport")
     title Digital Léman CV
   body
-    include PDF/CV-pivot-picture
+    block content
     

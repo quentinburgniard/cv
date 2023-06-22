@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  div(class="container")
+    form(class="ds-form")
+      div(class="row")
+        div(class="col-12 col-sm-6")
+          div(class="_ds-form text")
+            label(for="title")= __("Title")
+            input(id="title" name="title" type="text" value=component.title)
+      div(class="row")
+        if ['educations', 'experiences', 'miscellaneous'].includes(componentType)
+          div(class="col-12 col-md-4 col-sm-6")
+            div(class="_ds-form text")
+              label(for="from")= __("From")
+              input(id="from" type="date" value=component.startDate)
+          div(class="col-12 col-md-4 col-sm-6")
+            div(class="_ds-form text")
+              label(for="to")= __("To")
+              input(id="to" type="date" value=component.endDate)
+          div(class="col-12")
+            div(class="_ds-form text")
+              label(for="description")= __("Description")
+              textarea(name="description")= component.description
+        if ['interests', 'skills'].includes(componentType)
+          div(class="col-12")
+            div(class="_ds-form text")
+              label(for="description")= __("Description")
+              textarea(name="description")= component.text

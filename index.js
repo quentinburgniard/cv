@@ -1,25 +1,25 @@
 const axios = require('axios');
-const express = require('express');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const express = require('express');
 const fr = require('./fr.json');
+const morgan = require('morgan');
 const pt = require('./pt.json');
 
 const app = express();
 const port = 80;
 
 app.disable('x-powered-by');
-app.use(cookieParser());
-app.use(express.static('public', { maxAge: '7d' }));
-app.use(express.urlencoded({ extended: false }));
-app.use(logger('dev'));
+app.set('view cache', false);
 app.set('view engine', 'pug');
-app.disable('view cache');
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public', { index: false, lastModified: false, maxAge: '7d' }));
+app.use(morgan(':method :url :status'));
 
 app.use((req, res, next) => {
-  res.__ = (key) => { 
-    let language = req.params.language || res.language;
-    switch (language) {
+  res.locals.token = req.cookies.t || null;
+  res.locals.__ = (key) => {
+    switch (res.locals.language) {
       case 'fr':
         return fr[key] || key;
       case 'pt':
@@ -31,51 +31,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  req.token = req.cookies.t || '';
+app.use('/:language(en|fr|pt)', (req, res, next) => {
+  res.locals.language = req.params.language;
   next();
 });
 
-app.get('/pdf/:id', (req, res) => {
-  axios.get(`https://api.digitalleman.com/v2/cvs/${req.params.id}`, {
-    headers: {
-      'authorization': `Bearer ${req.token}`
-    },
-    params: {
-      populate: [
-        'educations',
-        'experiences',
-        'interests',
-        'miscellaneous',
-        'picture',
-        'skills'
-      ]
-    }
-  })
-  .then((api) => {
-    let cv = api.data.data;
-    if (cv.attributes.birthdate) {
-      let date = new Date(cv.attributes.birthdate);
-      cv.attributes.birthdate = `${date.toLocaleDateString(undefined, { day: '2-digit' })}/${date.toLocaleDateString(undefined, { month: '2-digit' })}/${date.getFullYear()}`;
-      let difference = Date.now() - date.getTime();
-      let age = new Date(difference);
-      cv.attributes.age = Math.abs(age.getUTCFullYear() - 1970);
-    }
-    if (cv.attributes.website) cv.attributes.websiteHostname = new URL(cv.attributes.website).hostname;
-    res.language = cv.attributes.locale;
-    res.render('PDF', {
-      __: res.__,
-      cv: cv
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-    res.status(error.response.status || 500);
-    res.send();
-  });
-});
-
-app.get('/:language', (req, res) => {
+app.get('/:language/new', (req, res) => {
   let data = {
     locale: req.params.language
   };
@@ -111,35 +72,34 @@ app.get('/:language', (req, res) => {
   });
 });
 
-app.get('/:language/:id', (req, res) => {
+app.get('/:language(en|fr|pt)/:id', (req, res) => {
   axios.get(`https://api.digitalleman.com/v2/cvs/${req.params.id}`, {
     headers: {
-      'authorization': `Bearer ${req.token}`
+      'authorization': `Bearer ${res.locals.token}`
     },
     params: {
-      locale: req.params.language,
+      locale: res.locals.language,
       populate: [
         'educations',
         'experiences',
+        'image',
         'interests',
         'miscellaneous',
-        'picture',
         'skills'
       ]
     }
   })
-  .then((api) => {
-    let cv = api.data.data;
-    if (cv.attributes.locale == req.params.language) {
-      res.render('App', {
-        __: res.__,
-        cv: cv
+  .then((response) => {
+    if (response.data.data.attributes.locale == res.locals.language) {
+      res.render('app', {
+        cv: response.data
       });
     } else {
-      res.redirect(301, `https://cv.digitalleman.com/${cv.attributes.locale}/${cv.id}`);
+      res.redirect(301, `https://cv.digitalleman.com/${response.data.data.attributes.locale}/${response.data.id}`);
     }
   })
   .catch((error) => {
+    console.log(error)
     if (error && [401, 403].includes(error.response.status)) {
       res.redirect(`https://id.digitalleman.com?l=${req.params.language}&r=cv.digitalleman.com%2F${req.params.language}%2F${req.params.id}`);
     } else {
@@ -149,13 +109,95 @@ app.get('/:language/:id', (req, res) => {
   });
 });
 
+app.get('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interests|miscellaneous|skills)/:componentID', (req, res) => {
+  axios.get(`https://api.digitalleman.com/v2/cvs/${req.params.id}`, {
+    headers: {
+      'authorization': `Bearer ${res.locals.token}`
+    },
+    params: {
+      locale: res.locals.language,
+      populate: [
+        'educations',
+        'experiences',
+        'image',
+        'interests',
+        'miscellaneous',
+        'skills'
+      ]
+    }
+  })
+  .then((response) => {
+    const component = response.data.data.attributes[req.params.componentType].find(component => component.id == req.params.componentID);
+    if (response.data.data.attributes.locale == res.locals.language) {
+      res.render('component', {
+        component: component,
+        componentType: req.params.componentType,
+        cv: response.data
+      });
+    } else {
+      res.redirect(301, `https://cv.digitalleman.com/${response.data.data.attributes.locale}/${response.data.id}`);
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+    if (error && [401, 403].includes(error.response.status)) {
+      res.redirect(`https://id.digitalleman.com?l=${req.params.language}&r=cv.digitalleman.com%2F${req.params.language}%2F${req.params.id}`);
+    } else {
+      res.status(error.response.status || 500);
+      res.send();
+    }
+  });
+});
+
+app.get('/pdf/:id', (req, res) => {
+  axios.get(`https://api.digitalleman.com/v2/cvs/${req.params.id}`, {
+    headers: {
+      'authorization': `Bearer ${res.locals.token}`
+    },
+    params: {
+      populate: [
+        'educations',
+        'experiences',
+        'image',
+        'interests',
+        'miscellaneous',
+        'picture',
+        'skills'
+      ]
+    }
+  })
+  .then((response) => {
+    let cv = response.data;
+    if (cv.data.attributes.template) {    
+      if (cv.data.attributes.birthdate) {
+        let date = new Date(cv.data.attributes.birthdate);
+        cv.data.attributes.birthdate = `${date.toLocaleDateString(undefined, { day: '2-digit' })}/${date.toLocaleDateString(undefined, { month: '2-digit' })}/${date.getFullYear()}`;
+        let difference = Date.now() - date.getTime();
+        let age = new Date(difference);
+        cv.data.  attributes.age = Math.abs(age.getUTCFullYear() - 1970);
+      }
+      if (cv.data.attributes.website) cv.data.attributes.websiteHostname = new URL(cv.data.attributes.website).hostname;
+      res.locals.language = cv.data.attributes.locale;
+      res.render(`pdf/${cv.data.attributes.template}`, {
+        cv: cv
+      });
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+    //res.status(error.response.status || 500);
+    res.send();
+  });
+});
+
 app.use((req, res) => {
   res.status(404);
   res.send();
 });
 
 app.use((err, req, res, next) => {
-  res.status(err.status || 500);
+  console.log(err);
+  res.status(500);
   res.send();
 });
 

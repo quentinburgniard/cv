@@ -1,93 +1,148 @@
-doctype html
-html(lang=cv.attributes.locale)
-  head
-    link(href="https://fonts.googleapis.com" rel="preconnect")
-    link(crossorigin href="https://fonts.gstatic.com" rel="preconnect")
-    link(href="/bootstrap-reboot.min.css" rel="stylesheet")
-    link(href="/bootstrap-grid.min.css" rel="stylesheet")
-    link(href="/app.css" rel="stylesheet")
-    link(href="https://fonts.googleapis.com/css2?family=Catamaran:wght@200;500;600;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet")
-    link(href="/favicon.png" rel="shortcut icon" type="image/png")
-    meta(charset="UTF-8")
-    meta(content="width=device-width, initial-scale=1.0" name="viewport")
-    title Digital Léman CV
-  body
+extends layout
+
+block content
+  include app/mixins
+  div(class="container")
+    div(class="row")
+      div(class="col-12")
+        div(class="ds-title")
+          h1(class="_ds-title title")= __("My CV")
+  section(class="ds-carousel-image")
     div(class="container")
-      div(class="row justify-content-center")
-        div(class="col-12 col-xl-8")
-          h1= __("My CV")
-          div(class="cv-carousel carousel")
-            img(class="cv-image cv-pivot-picture" onclick="toggleFullscreenCarousel()")
-          h1= __("My information")
-          form(v-cloak)
-            //-div(class="col-12")
-              if cv.attributes.picture.data
-                img(class="cv-image" src=cv.attributes.picture.data.attributes.url)
-            div(class="row")
-              div(class="col-12 col-sm-6")
-                input(type="text" placeholder=__("Pick-up line") v-model.lazy.trim="cv.attributes.title")
-            div(class="row")
-              div(class="col-12 col-md-4 col-sm-6")
-                input(type="text" placeholder=__("First name") v-model.lazy.trim="cv.attributes.firstName")
-              div(class="col-12 col-md-4 col-sm-6")
-                input(type="text" placeholder=__("Last name") v-model.lazy.trim="cv.attributes.lastName")
-              div(class="col-12 col-md-4 col-sm-6")
-                input(type="date" v-model.lazy.trim="cv.attributes.birthdate")
-              div(class="col-12 col-md-4 col-sm-6")
-                input(type="email" placeholder=__("Email") v-model.lazy.trim="cv.attributes.email")
-              div(class="col-12 col-md-4 col-sm-6")
-                input(type="tel" placeholder=__("Phone number") v-model.lazy.trim="cv.attributes.phoneNumber")
-              div(class="col-12 col-md-4 col-sm-6")
-                input(type="url" placeholder=__("Website") v-model.lazy.trim="cv.attributes.website")
-              div(class="col-12")
-                textarea(placeholder=__("Address") v-model.lazy.trim="cv.attributes.address" v-on:keyup="(event) => resizeTextarea(event.target)")
-              div(class="col-12")
-                h2= __("Professional Background")
-                - let events = "cv.attributes.experiences";
-                include App/Events
-              div(class="col-12")
-                h2= __("Education")
-                - events = "cv.attributes.educations";
-                include App/Events
-              div(class="col-12")
-                h2= __("Miscellaneous")
-                - events = "cv.attributes.miscellaneous";
-                include App/Events
-              div(class="col-12")
-                h2= __("Skills")
-                - let sections = "cv.attributes.skills";
-                include App/Sections
-              div(class="col-12")
-                h2= __("Interests")
-                - sections = "cv.attributes.interests";
-                include App/Sections
-    div(class="fullscreen-cv-carousel" style="display: none")
-      div(class="container")
-        div(class="row justify-content-center")
-          div(class="col col-xl-8")
-            div(class="carousel")
-              img(class="cv-image cv-pivot-picture")
-              img(class="cv-image cv-pivot-picture")
-              img(class="cv-image cv-pivot-picture")
-    script.
-      const redirect = () => {
-        window.location = "https://id.digitalleman.com?l=!{cv.attributes.locale}&r=cv.digitalleman.com%2F!{cv.attributes.locale}%2F!{cv.id}";
-      }
-      const getToken = () => {
-        let match = document.cookie.match(/t=([^;]+)/);
-        if (match && match[1]) {
-          return match[1];
-        } else {
-          redirect();
-        }
-      }
-      const toggleFullscreenCarousel = () => {
-        let element = document.getElementsByClassName("fullscreen-cv-carousel")[0];
-        if (element.style.display == "none") {
-          element.style.display = "block";
-        } else {
-          element.style.display = "none";
-        }
-      }
-    include App/Vue
-    include App/Socket
+      div(class="row")
+        div(class="col-10 col-xl-5")
+          img(alt="Screenshot Casa da Sogra Website" src="https://digitalleman.fra1.digitaloceanspaces.com/casasogra_app_ea3b584d7a.jpg")
+      div(class="ds-carousel-icons icon-action-left" style="display: none")
+        i(class="bi bi-arrow-left-circle-fill")
+      div(class="ds-carousel-icons icon-action-right" style="display: none")
+        i(class="bi bi-arrow-right-circle-fill")
+  div(class="container")
+    div(class="row")
+      div(class="col-12")
+        div(class="ds-title")
+          h1(class="_ds-title title")= __("My information")
+    form(class="ds-form")
+      div(class="row")
+        div(class="col-12 col-sm-6")
+          div(class="_ds-form text")
+            label(for="title")= __("Pick-up line")
+            input(id="title" name="title" type="text" value=cv.data.attributes.title)
+      div(class="row")
+        div(class="col-12 col-sm-6")
+          div(class="_ds-form text")
+            label(for="image")= __("Profile picture")
+            input(disabled id="image" name="image" type="text" value=cv.data.attributes.image.data.attributes.description)
+      div(class="row")
+        div(class="col-12 col-md-4 col-sm-6")
+          div(class="_ds-form text")
+            label(for="firstName")= __("First name")
+            input(id="firstName" name="firstName" placeholder="Quentin" type="text" value=cv.data.attributes.firstName)
+        div(class="col-12 col-md-4 col-sm-6")
+          div(class="_ds-form text")
+            label(for="lastName")= __("Last name")
+            input( placeholder="Burgniard" type="text" value=cv.data.attributes.lastName)
+        div(class="col-12 col-md-4 col-sm-6")
+          div(class="_ds-form text")
+            label(for="title")= __("Date of Birth")
+            input(type="date" value=cv.data.attributes.birthdate)
+        div(class="col-12 col-md-4 col-sm-6")
+          div(class="_ds-form text")
+            label(for="email")= __("Email")
+            input(autocapitalize="none" id="email" name="email" placeholder="contact@quentinburgniard.com" type="email" value=cv.data.attributes.email)
+        div(class="col-12 col-md-4 col-sm-6")
+          div(class="_ds-form text")
+            label(for="phoneNumber")= __("Phone number")
+            input(id="phoneNumber" name="phoneNumber" placeholder="+41 76 595 73 42" type="tel" value=cv.data.attributes.phoneNumber)
+        div(class="col-12 col-md-4 col-sm-6")
+          div(class="_ds-form text")
+            label(for="website")= __("Website")
+            input(id="website" name="website" placeholder="https://digitalleman.com" type="url" value=cv.data.attributes.website)
+        div(class="col-12")
+          div(class="_ds-form text")
+            label(for="address")= __("Address")
+            textarea(name="address")= cv.data.attributes.address
+    div(class="row")
+      div(class="col-12")
+        div(class="ds-title")
+          h1(class="_ds-title title")= __("Professional Background")
+      each event in cv.data.attributes.experiences
+        div(class="col-12")
+          a(alt=event.title class="ds-link-small" href=`/${language}/${cv.data.id}/experiences/${event.id}`)
+            div(class="_ds-link body")
+              div(class="_ds-link-small title")= event.title
+            div(class="_ds-link action-icon")
+              i(class="bi bi-chevron-right")
+      div(class="col-12")
+        a(alt="Backend Development" class="ds-link" href=`/${language}/${cv.data.id}/experiences/new`)
+          div(class="_ds-link body")
+            div(class="_ds-link title") Add
+          div(class="_ds-link action-icon")
+            i(class="bi bi-plus-lg")
+    div(class="row")
+      div(class="col-12")
+        div(class="ds-title")
+          h1(class="_ds-title title")= __("Education")
+      each event in cv.data.attributes.educations
+        div(class="col-12")
+          a(alt=event.title class="ds-link-small" href=`/${language}/${cv.data.id}/educations/${event.id}`)
+            div(class="_ds-link body")
+              div(class="_ds-link-small title")= event.title
+            div(class="_ds-link action-icon")
+              i(class="bi bi-chevron-right")
+      div(class="col-12")
+        a(alt="Backend Development" class="ds-link" href=`/${language}/${cv.data.id}/educations/new`)
+          div(class="_ds-link body")
+            div(class="_ds-link title") Add
+          div(class="_ds-link action-icon")
+            i(class="bi bi-plus-lg")
+    div(class="row")
+      div(class="col-12")
+        div(class="ds-title")
+          h1(class="_ds-title title")= __("Miscellaneous")
+      each event in cv.data.attributes.miscellaneous
+        div(class="col-12")
+          a(alt=event.title class="ds-link-small" href=`/${language}/${cv.data.id}/miscellaneous/${event.id}`)
+            div(class="_ds-link body")
+              div(class="_ds-link-small title")= event.title
+            div(class="_ds-link action-icon")
+              i(class="bi bi-chevron-right")
+      div(class="col-12")
+        a(alt="Backend Development" class="ds-link" href=`/${language}/${cv.data.id}/miscellaneous/new`)
+          div(class="_ds-link body")
+            div(class="_ds-link title") Add
+          div(class="_ds-link action-icon")
+            i(class="bi bi-plus-lg")
+    div(class="row")
+      div(class="col-12")
+        div(class="ds-title")
+          h1(class="_ds-title title")= __("Skills")
+    each section in cv.data.attributes.skills
+      div(class="col-12")
+        a(alt=section.title class="ds-link-small" href=`/${language}/${cv.data.id}/skills/${section.id}`)
+          div(class="_ds-link body")
+            div(class="_ds-link-small title")= section.title
+          div(class="_ds-link action-icon")
+            i(class="bi bi-chevron-right")
+    div(class="col-12")
+      a(alt="Backend Development" class="ds-link" href=`/${language}/${cv.data.id}/skills/new`)
+        div(class="_ds-link body")
+          div(class="_ds-link title") Add
+        div(class="_ds-link action-icon")
+          i(class="bi bi-plus-lg")
+    div(class="row")
+      div(class="col-12")
+        div(class="ds-title")
+          h1(class="_ds-title title")= __("Interests")
+    each section in cv.data.attributes.interests
+      div(class="col-12")
+        a(alt=section.title class="ds-link-small" href=`/${language}/${cv.data.id}/interests/${section.id}`)
+          div(class="_ds-link body")
+            div(class="_ds-link-small title")= section.title
+          div(class="_ds-link action-icon")
+            i(class="bi bi-chevron-right")
+    div(class="col-12")
+      a(alt="Backend Development" class="ds-link" href=`/${language}/${cv.data.id}/interests/new`)
+        div(class="_ds-link body")
+          div(class="_ds-link title") Add
+        div(class="_ds-link action-icon")
+          i(class="bi bi-plus-lg")

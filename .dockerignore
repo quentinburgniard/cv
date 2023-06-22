@@ -1,6 +1,8 @@
-LICENSE
-node_modules
-README.md
+.dockerignore
 .DS_Store
 .git
 .gitignore
+Dockerfile
+LICENSE
+node_modules
+README.md
