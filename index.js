@@ -137,6 +137,7 @@ app.get('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interest
       });
     } else if (req.params.componentID == 'new') {
       res.render('component', {
+        components: components,
         componentType: req.params.componentType,
         cvID: response.data.data.id
       });
