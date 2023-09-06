@@ -109,7 +109,7 @@ app.get('/:language(en|fr|pt)/:id', (req, res) => {
   });
 });
 
-app.get('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interests|miscellaneous|skills)/:componentID', (req, res) => {
+app.get('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interests|miscellaneous|skills)/:componentID', (req, res, next) => {
   axios.get(`https://api.digitalleman.com/v2/cvs/${req.params.id}`, {
     headers: {
       'authorization': `Bearer ${res.locals.token}`
@@ -119,7 +119,6 @@ app.get('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interest
       populate: [
         'educations',
         'experiences',
-        'image',
         'interests',
         'miscellaneous',
         'skills'
@@ -127,15 +126,22 @@ app.get('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interest
     }
   })
   .then((response) => {
-    const component = response.data.data.attributes[req.params.componentType].find(component => component.id == req.params.componentID);
-    if (response.data.data.attributes.locale == res.locals.language) {
+    const components = response.data.data.attributes[req.params.componentType];
+    const component = components.find(component => component.id == req.params.componentID);
+    if (component) {
       res.render('component', {
         component: component,
+        components: components,
         componentType: req.params.componentType,
-        cv: response.data
+        cvID: response.data.data.id
+      });
+    } else if (req.params.componentID == 'new') {
+      res.render('component', {
+        componentType: req.params.componentType,
+        cvID: response.data.data.id
       });
     } else {
-      res.redirect(301, `https://cv.digitalleman.com/${response.data.data.attributes.locale}/${response.data.id}`);
+      next();
     }
   })
   .catch((error) => {
@@ -146,6 +152,66 @@ app.get('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interest
       res.status(error.response.status || 500);
       res.send();
     }
+  });
+});
+
+app.post('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interests|miscellaneous|skills)', (req, res, next) => {
+  let components = JSON.parse(req.body.list);
+  let data = {};
+  components.push({
+    description: req.body.description,
+    endDate: `${req.body.endDate}-01`,
+    startDate: `${req.body.startDate}-01`,
+    title: req.body.title
+  });
+  data[req.params.componentType] = components;
+  axios.put(`https://api.digitalleman.com/v2/cvs/${req.params.id}`, {
+    data: data
+  },
+  {
+    headers: {
+      'authorization': `Bearer ${res.locals.token}`
+    }
+  })
+  .then((response) => {
+    res.redirect(`https://cv.digitalleman.com/${response.data.data.attributes.locale}/${response.data.data.id}`);
+  }).catch((error) => {
+    console.log(error.response.data);
+    //res.status(error.response.status || 500);
+    res.send();
+  });
+});
+
+app.post('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interests|miscellaneous|skills)/:componentID', (req, res, next) => {
+  let components = JSON.parse(req.body.list);
+  let data = {};
+  const index = components.findIndex(component => component.id == req.params.componentID);
+  if (req.body.delete) {
+    components = components.splice(index, 1);
+  } else {
+    components[index] = {
+      description: req.body.description,
+      endDate: `${req.body.endDate}-01`,
+      id: req.params.componentID,
+      startDate: `${req.body.startDate}-01`,
+      title: req.body.title
+    }
+  }
+  data[req.params.componentType] = components;
+  axios.put(`https://api.digitalleman.com/v2/cvs/${req.params.id}`, {
+    data: data
+  },
+  {
+    headers: {
+      'authorization': `Bearer ${res.locals.token}`
+    }
+  })
+  .then((response) => {
+    res.redirect(`https://cv.digitalleman.com/${response.data.data.attributes.locale}/${response.data.data.id}`);
+  }).catch((error) => {
+    console.log(error.response.data);
+    //res.status(error.response.status || 500);
+    res.send();
   });
 });
 
