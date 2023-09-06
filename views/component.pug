@@ -25,8 +25,8 @@ block content
         if ['interests', 'skills'].includes(componentType)
           div(class="col-12")
             div(class="_ds-form text")
-              label(for="description")= __("Description")
-              textarea(id="description" name="description")= component ? component.text : ''
+              label(for="text")= __("Description")
+              textarea(id="text" name="text")= component ? component.text : ''
         div(class="col-12")
           button(class="ds-link" type="submit")
             div(class="_ds-link body")

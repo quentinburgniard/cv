@@ -190,12 +190,13 @@ app.post('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interes
     components.splice(index, 1);
   } else {
     components[index] = {
-      description: req.body.description,
       endDate: `${req.body.endDate}-01`,
       id: req.params.componentID,
       startDate: `${req.body.startDate}-01`,
       title: req.body.title
     }
+    if (['educations', 'experiences', 'miscellaneous'].includes(req.params.componentType)) components[index].description = req.body.description;
+    if (['interests', 'skills'].includes(req.params.componentType)) components[index].text = req.body.text;
   }
   data[req.params.componentType] = components;
   
