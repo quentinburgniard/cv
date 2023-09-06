@@ -187,7 +187,7 @@ app.post('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interes
   let data = {};
   const index = components.findIndex(component => component.id == req.params.componentID);
   if (req.body.delete) {
-    components = components.splice(index, 1);
+    components.splice(index, 1);
   } else {
     components[index] = {
       description: req.body.description,
@@ -198,6 +198,7 @@ app.post('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interes
     }
   }
   data[req.params.componentType] = components;
+  
   axios.put(`https://api.digitalleman.com/v2/cvs/${req.params.id}`, {
     data: data
   },
@@ -209,9 +210,7 @@ app.post('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interes
   .then((response) => {
     res.redirect(`https://cv.digitalleman.com/${response.data.data.attributes.locale}/${response.data.data.id}`);
   }).catch((error) => {
-    console.log(error.response.data);
-    //res.status(error.response.status || 500);
-    res.send();
+    res.status(error.response.status || 500);
   });
 });
 
