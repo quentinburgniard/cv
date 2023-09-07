@@ -95,11 +95,10 @@ app.get('/:language(en|fr|pt)/:id', (req, res) => {
         cv: response.data
       });
     } else {
-      res.redirect(301, `https://cv.digitalleman.com/${response.data.data.attributes.locale}/${response.data.id}`);
+      res.redirect(301, `https://cv.digitalleman.com/${response.data.data.attributes.locale}/${response.data.data.id}`);
     }
   })
   .catch((error) => {
-    console.log(error)
     if (error && [401, 403].includes(error.response.status)) {
       res.redirect(`https://id.digitalleman.com?l=${req.params.language}&r=cv.digitalleman.com%2F${req.params.language}%2F${req.params.id}`);
     } else {
@@ -146,7 +145,6 @@ app.get('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interest
     }
   })
   .catch((error) => {
-    console.log(error);
     if (error && [401, 403].includes(error.response.status)) {
       res.redirect(`https://id.digitalleman.com?l=${req.params.language}&r=cv.digitalleman.com%2F${req.params.language}%2F${req.params.id}`);
     } else {
@@ -177,8 +175,7 @@ app.post('/:language(en|fr|pt)/:id/:componentType(educations|experiences|interes
   .then((response) => {
     res.redirect(`https://cv.digitalleman.com/${response.data.data.attributes.locale}/${response.data.data.id}`);
   }).catch((error) => {
-    console.log(error.response.data);
-    //res.status(error.response.status || 500);
+    res.status(error.response.status || 500);
     res.send();
   });
 });
@@ -251,8 +248,7 @@ app.get('/pdf/:id', (req, res) => {
     }
   })
   .catch((error) => {
-    console.log(error);
-    //res.status(error.response.status || 500);
+    res.status(error.response.status || 500);
     res.send();
   });
 });
@@ -263,7 +259,6 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err);
   res.status(500);
   res.send();
 });
