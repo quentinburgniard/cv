@@ -1,3 +1,8 @@
-mixin section(title, description)
-  p= title
-  div(class="description" style="white-space: pre-line")= description
+mixin event(event)
+  p(class="annees")= `${localeMonth(event.startDate)} - ${localeMonth(event.endDate)}`
+  = event.title
+  div(class="description" style="white-space: pre-line")= event.description
+
+mixin section(section)
+  p= section.title
+  div(class="description" style="white-space: pre-line")= section.text

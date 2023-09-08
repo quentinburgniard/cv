@@ -17,6 +17,14 @@ app.use(express.static('public', { index: false, lastModified: false, maxAge: '7
 app.use(morgan(':method :url :status'));
 
 app.use((req, res, next) => {
+  res.locals.localeMonth = (date) => {
+    date = new Date(date);
+    let language = res.locals.language || 'en';
+    let month = date.toLocaleDateString(language, { month: 'short' });
+    month = `${month.charAt(0).toUpperCase()}${month.slice(1)}`;
+    let year = date.toLocaleDateString(language, { year: 'numeric' });
+    return `${month}. ${year}`;
+  }
   res.locals.token = req.cookies.t || null;
   res.locals.__ = (key) => {
     switch (res.locals.language) {
@@ -232,15 +240,18 @@ app.get('/pdf/:id', (req, res) => {
   })
   .then((response) => {
     let cv = response.data;
+
+    if (cv.data.attributes.birthdate) {
+      let date = new Date(cv.data.attributes.birthdate);
+      cv.data.attributes.birthdate = `${date.toLocaleDateString(undefined, { day: '2-digit' })}/${date.toLocaleDateString(undefined, { month: '2-digit' })}/${date.getFullYear()}`;
+      let difference = Date.now() - date.getTime();
+      let age = new Date(difference);
+      cv.data.attributes.age = Math.abs(age.getUTCFullYear() - 1970);
+    }
+
+    //if (cv.data.attributes.website) cv.data.attributes.websiteHostname = new URL(cv.data.attributes.website).hostname;
+
     if (cv.data.attributes.template) {    
-      if (cv.data.attributes.birthdate) {
-        let date = new Date(cv.data.attributes.birthdate);
-        cv.data.attributes.birthdate = `${date.toLocaleDateString(undefined, { day: '2-digit' })}/${date.toLocaleDateString(undefined, { month: '2-digit' })}/${date.getFullYear()}`;
-        let difference = Date.now() - date.getTime();
-        let age = new Date(difference);
-        cv.data.  attributes.age = Math.abs(age.getUTCFullYear() - 1970);
-      }
-      if (cv.data.attributes.website) cv.data.attributes.websiteHostname = new URL(cv.data.attributes.website).hostname;
       res.locals.language = cv.data.attributes.locale;
       res.render(`pdf/${cv.data.attributes.template}`, {
         cv: cv

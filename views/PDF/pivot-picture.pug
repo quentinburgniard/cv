@@ -1,6 +1,7 @@
 extends layout.pug
 
 block content
+  include mixins
   style.
     .header, .left {
       background-color: #487d9610;
@@ -12,7 +13,7 @@ block content
     div(class="row header")
       div(class="col-4")
         if cv.data.attributes.image.data
-          img(src=cv.data.attributes.image.data.attributes.url width="100%" height="150px")
+          img(src=`https://api.digitalleman.com/v2/assets/${cv.data.attributes.image.data.attributes.slug}` width="100%" height="150px")
       div(class="col-8")
         if cv.data.attributes.firstName && cv.data.attributes.lastName
           h1= `${cv.data.attributes.firstName || ''} ${cv.data.attributes.lastName || ''}`
@@ -47,13 +48,13 @@ block content
               h3= __("Skills")
               div(class="line")
               each section in cv.data.attributes.skills
-                include Section
+                +section(section)
           if cv.data.attributes.interests.length
             section
               h3= __("Interests")
               div(class="line")
               each section in cv.data.attributes.interests
-                include Section
+                +section(section)
       div(class="col-8")
         div(class="right")
           if cv.data.attributes.experiences.length
@@ -61,16 +62,16 @@ block content
               h3= __("Professional Background")
               div(class="line")
               each event in cv.data.attributes.experiences
-                include Event
+                +event(event)
           if cv.data.attributes.educations.length
             section
               h3= __("Education")
               div(class="line")
               each event in cv.data.attributes.educations
-                include Event
+                +event(event)
           if cv.data.attributes.miscellaneous.length
             section
               h3= __("Miscellaneous")
               div(class="line")
               each event in cv.data.attributes.miscellaneous
-                include Event
+                +event(event)
