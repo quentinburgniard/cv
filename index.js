@@ -259,6 +259,7 @@ app.get('/pdf/:id', (req, res) => {
     }
   })
   .catch((error) => {
+    console.log(error);
     res.status(error.response.status || 500);
     res.send();
   });
