@@ -17,7 +17,7 @@ script.
         const blob = new Blob([new Uint8Array(results)], { type: "application/pdf" });
         let url = URL.createObjectURL(blob);
 
-        window.location.replace(url);
+        window.open(url, "_blank");
       });
     }
     const screenshot = () => {

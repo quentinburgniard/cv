@@ -66,3 +66,13 @@ html(lang=language)
     div(class="container")
       div(class="row")
   script(src="https://ds.digitalleman.com/index.js")
+  script.
+    const getToken = () => {
+      let match = document.cookie.match(/t=([^;]+)/);
+      if (match && match[1]) {
+        return match[1];
+      } else {
+        redirect();
+      }
+    }
+  include app/socket
