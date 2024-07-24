@@ -23,7 +23,7 @@ app.use((req, res, next) => {
     let month = date.toLocaleDateString(language, { month: 'short' });
     month = `${month.charAt(0).toUpperCase()}${month.slice(1)}`;
     let year = date.toLocaleDateString(language, { year: 'numeric' });
-    return `${month}. ${year}`;
+    return `${month} ${year}`;
   }
   res.locals.token = req.cookies.t || null;
   res.locals.__ = (key) => {
