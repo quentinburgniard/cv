@@ -1,8 +1,8 @@
 mixin event(event)
-  p(class="annees")= `${localeMonth(event.startDate)} - ${localeMonth(event.endDate)}`
+  span(class="dates")= `${localeMonth(event.startDate)} - ${localeMonth(event.endDate)}`
   div(class="title")= event.title
-  div(class="description" style="white-space: pre-line")= event.description
+  div(class="description")= event.description
 
 mixin section(section)
   p= section.title
-  div(class="description" style="white-space: pre-line")= section.text
+  div(class="description")= section.text

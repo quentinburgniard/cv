@@ -1,3 +1,7 @@
+body {
+  font-size: 14px;
+}
+
 .header {
   font-family: 'Catamaran', sans-serif;
   height: 150px;
@@ -60,12 +64,19 @@ h3 {
   text-transform: uppercase;
 }
 
+.dates {
+  display: inline-block;
+  padding: 5px 10px;
+}
+
 .title {
+  display: inline-block;
+  margin-left: 5px;
   font-weight: bold;
 }
 
 .right {
-  padding: 15px 15px 15px 0;
+  padding: 15px 24px 15px 0;
 }
 
 .right .line {
