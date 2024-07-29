@@ -88,7 +88,7 @@ h3 {
 
 .description {
   margin: 5px 0;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .right {
