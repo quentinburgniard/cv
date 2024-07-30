@@ -41,19 +41,27 @@ body {
 }
 
 .contact-attribute {
-  margin: 0 0 10px 0;
+  margin-bottom: 10px;
 }
 
 .contact-attribute .highlight {
   font-weight: 700;
 }
 
-section {
-  margin: 20px 0 0 0;
+.section  {
+  margin-bottom: 10px;
 }
 
-p {
-  margin: 10px 0;
+.section .title {
+
+}
+
+.section .text {
+  font-style: italic;
+}
+
+section {
+  margin: 20px 0 0 0;
 }
 
 h3 {
