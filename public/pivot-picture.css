@@ -10,7 +10,7 @@ body {
 
 .header h1 {
   font-size: 32px;
-  font-weight: bold;
+  font-weight: 700;
   line-height: 30px;
   margin: 28px 0 0 0;
 
@@ -18,7 +18,7 @@ body {
 
 .header h2 {
   font-size: 18px;
-  font-weight: normal;
+  font-weight: 400;
   margin: 0;
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 .contact-attribute .highlight {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 section {
@@ -59,7 +59,7 @@ p {
 h3 {
   font-family: 'Catamaran', sans-serif;
   font-size: 20px;
-  font-weight: medium;
+  font-weight: 500;
   margin: 0;
   text-transform: uppercase;
 }
@@ -72,19 +72,19 @@ h3 {
 .title {
   display: inline-block;
   margin-left: 5px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .title {
   display: inline-block;
   margin-left: 5px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .subtitle {
   margin: 5px 0;
   font-style: italic;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .description {
