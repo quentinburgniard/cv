@@ -12,7 +12,7 @@ body {
   font-size: 32px;
   font-weight: 700;
   line-height: 30px;
-  margin: 28px 0 0 0;
+  margin-top: 28px;
 
 }
 
@@ -24,7 +24,7 @@ body {
 
 .line {
   height: 3px;
-  margin: 0 0 10px 0;
+  margin-bottom: 10px;
 }
 
 .header .line {
@@ -61,7 +61,7 @@ body {
 }
 
 section {
-  margin: 20px 0 0 0;
+  margin-top: 15px;
 }
 
 h3 {
