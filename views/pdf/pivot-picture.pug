@@ -29,7 +29,7 @@ block content
             div(class="contact-attribute")
               span(class="highlight")= __("Phone number")
               br
-              span(class="address")= cv.data.attributes.phoneNumber
+              span= cv.data.attributes.phoneNumber
             div(class="contact-attribute")
               span(class="highlight")= __("Email")
               br
@@ -37,12 +37,15 @@ block content
             div(class="contact-attribute")
               span(class="highlight")= __("Address")
               br
-              span(class="address")= cv.data.attributes.address
+              span= cv.data.attributes.address
             if cv.data.attributes.birthdate
               div(class="contact-attribute")
                 span(class="highlight")= __("Date of Birth")
                 br
                 = `${cv.data.attributes.birthdate} - ${cv.data.attributes.age} ${__("y.o.")}`
+            if cv.data.attributes.workPermit
+              div(class="contact-attribute")
+                = cv.data.attributes.workPermit
           if cv.data.attributes.skills.length
             section
               h3= __("Skills")
