@@ -37,7 +37,7 @@ block content
             div(class="contact-attribute")
               span(class="highlight")= __("Website")
               br
-              span= cv.data.attributes.website.replace('https://', '')
+              a(href=cv.data.attributes.website)= cv.data.attributes.website.replace('https://', '')
             div(class="contact-attribute")
               span(class="highlight")= __("Address")
               br

@@ -10,6 +10,10 @@ body, .container-fluid {
   padding: 0 !important;
 }
 
+a {
+  color: #383838;
+}
+
 img {
   object-fit: cover;
 }
