@@ -33,7 +33,11 @@ block content
             div(class="contact-attribute")
               span(class="highlight")= __("Email")
               br
-              span(class="address")= cv.data.attributes.email
+              span= cv.data.attributes.email
+            div(class="contact-attribute")
+              span(class="highlight")= __("Website")
+              br
+              span= cv.data.attributes.website.replace('https://', '')
             div(class="contact-attribute")
               span(class="highlight")= __("Address")
               br
