@@ -42,6 +42,7 @@ body {
 
 .contact-attribute {
   margin-bottom: 10px;
+  white-space: pre-wrap;
 }
 
 .contact-attribute .highlight {

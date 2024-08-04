@@ -13,7 +13,3 @@ body, .container-fluid {
 img {
   object-fit: cover;
 }
-
-.address {
-  white-space: pre-line;
-}
