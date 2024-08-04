@@ -19,6 +19,8 @@ block content
           h1= `${cv.data.attributes.firstName || ''} ${cv.data.attributes.lastName || ''}`
         if cv.data.attributes.title
           h2= cv.data.attributes.title
+        if cv.data.attributes.subtitle
+          h2(class="subtitle")= cv.data.attributes.subtitle
         div(class="line")
     div(class="content row")
       div(class="col-4")
