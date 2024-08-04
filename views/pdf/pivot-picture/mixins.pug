@@ -1,8 +1,9 @@
 mixin event(event)
-  div(class="dates")= `${localeMonth(event.startDate)} - ${localeMonth(event.endDate)}`
-  div(class="title")= event.title
-  div(class="subtitle")= event.subtitle
-  div(class="description")= event.description
+  div(class="event")
+    div(class="dates")= `${localeMonth(event.startDate)} - ${localeMonth(event.endDate)}`
+    div(class="title")= event.title
+    div(class="subtitle")= event.subtitle
+    div(class="description")= event.description
 
 mixin section(section)
   div(class="section")
